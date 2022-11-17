@@ -1,0 +1,163 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Icons/plus-solid.svg" type="Texture" id=1]
+[ext_resource path="res://Scene/ArraySetEditor.gd" type="Script" id=2]
+[ext_resource path="res://Theme/empty.stylebox" type="StyleBox" id=3]
+[ext_resource path="res://Theme/maya/maya.theme" type="Theme" id=4]
+[ext_resource path="res://Icons/xmark-solid.svg" type="Texture" id=5]
+[ext_resource path="res://Icons/floppy-disk-regular.svg" type="Texture" id=6]
+[ext_resource path="res://Icons/rotate-solid.svg" type="Texture" id=7]
+[ext_resource path="res://Scripts/BaseButton_Handler.gd" type="Script" id=8]
+
+[node name="ArraySetEditor" type="PanelContainer"]
+margin_right = 465.0
+margin_bottom = 542.0
+size_flags_vertical = 3
+theme = ExtResource( 4 )
+script = ExtResource( 2 )
+
+[node name="Editor" type="VBoxContainer" parent="."]
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 462.0
+margin_bottom = 539.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="HBoxContainer" parent="Editor"]
+margin_right = 459.0
+margin_bottom = 24.0
+
+[node name="Marker" type="HBoxContainer" parent="Editor/VBoxContainer"]
+margin_right = 118.0
+margin_bottom = 24.0
+
+[node name="VSeparator" type="VSeparator" parent="Editor/VBoxContainer/Marker"]
+margin_right = 7.0
+margin_bottom = 24.0
+custom_constants/separation = 7
+
+[node name="Label" type="Label" parent="Editor/VBoxContainer/Marker"]
+margin_left = 11.0
+margin_top = 3.0
+margin_right = 118.0
+margin_bottom = 21.0
+text = "No set selected"
+
+[node name="Set" type="HBoxContainer" parent="Editor/VBoxContainer"]
+margin_left = 122.0
+margin_right = 346.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 24 )
+custom_constants/separation = 5
+alignment = 2
+
+[node name="VSeparator" type="VSeparator" parent="Editor/VBoxContainer/Set"]
+margin_right = 4.0
+margin_bottom = 24.0
+custom_styles/separator = ExtResource( 3 )
+
+[node name="Refresh" type="Button" parent="Editor/VBoxContainer/Set"]
+margin_left = 9.0
+margin_right = 37.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 28, 24 )
+mouse_default_cursor_shape = 2
+icon = ExtResource( 7 )
+align = 0
+expand_icon = true
+script = ExtResource( 8 )
+
+[node name="Save" type="Button" parent="Editor/VBoxContainer/Set"]
+margin_left = 42.0
+margin_right = 112.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 70, 24 )
+mouse_default_cursor_shape = 2
+text = " Save"
+icon = ExtResource( 6 )
+align = 0
+expand_icon = true
+script = ExtResource( 8 )
+
+[node name="AddLine" type="Button" parent="Editor/VBoxContainer/Set"]
+margin_left = 117.0
+margin_right = 212.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 95, 24 )
+mouse_default_cursor_shape = 2
+text = " Add Line"
+icon = ExtResource( 1 )
+align = 0
+expand_icon = true
+script = ExtResource( 8 )
+
+[node name="VSeparator2" type="VSeparator" parent="Editor/VBoxContainer/Set"]
+margin_left = 217.0
+margin_right = 224.0
+margin_bottom = 24.0
+custom_constants/separation = 7
+
+[node name="Close" type="Button" parent="Editor/VBoxContainer/Set"]
+visible = false
+margin_left = 229.0
+margin_right = 304.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 75, 24 )
+mouse_default_cursor_shape = 2
+text = " Close"
+icon = ExtResource( 5 )
+align = 0
+expand_icon = true
+script = ExtResource( 8 )
+
+[node name="HS" type="HSeparator" parent="Editor"]
+margin_top = 28.0
+margin_right = 459.0
+margin_bottom = 34.0
+custom_constants/separation = 6
+
+[node name="Hints" type="VBoxContainer" parent="Editor"]
+margin_top = 38.0
+margin_right = 459.0
+margin_bottom = 89.0
+alignment = 1
+
+[node name="Log" type="RichTextLabel" parent="Editor/Hints"]
+margin_right = 459.0
+margin_bottom = 51.0
+focus_mode = 2
+text = "Waiting input...
+Create or load a new dialogue set
+"
+fit_content_height = true
+scroll_following = true
+selection_enabled = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Editor"]
+margin_top = 93.0
+margin_right = 459.0
+margin_bottom = 526.0
+rect_min_size = Vector2( 0, 430 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="ArrayData" type="VBoxContainer" parent="Editor/ScrollContainer"]
+margin_right = 459.0
+margin_bottom = 433.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HS3" type="HSeparator" parent="Editor"]
+margin_top = 530.0
+margin_right = 459.0
+margin_bottom = 536.0
+custom_constants/separation = 6
+custom_styles/separator = ExtResource( 3 )
+
+[connection signal="visibility_changed" from="." to="." method="_on_self_visibility_changed"]
+[connection signal="pressed" from="Editor/VBoxContainer/Set/Refresh" to="." method="_on_Refresh_pressed"]
+[connection signal="pressed" from="Editor/VBoxContainer/Set/Save" to="." method="_on_Save_pressed"]
+[connection signal="pressed" from="Editor/VBoxContainer/Set/AddLine" to="." method="_on_AddLine_pressed"]
+[connection signal="pressed" from="Editor/VBoxContainer/Set/Close" to="." method="_on_Close_pressed"]

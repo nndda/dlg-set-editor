@@ -1,0 +1,445 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scene/ArraySetEditor.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scene/MainApp.gd" type="Script" id=3]
+[ext_resource path="res://Theme/maya/maya.theme" type="Theme" id=4]
+
+[node name="MainApp" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 4 )
+script = ExtResource( 3 )
+
+[node name="EditorContainer" type="PanelContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Main" type="VBoxContainer" parent="EditorContainer"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 1022.0
+margin_bottom = 600.0
+
+[node name="UpperBar" type="VBoxContainer" parent="EditorContainer/Main"]
+margin_right = 1020.0
+margin_bottom = 32.0
+
+[node name="Stats" type="HBoxContainer" parent="EditorContainer/Main/UpperBar"]
+margin_right = 1020.0
+margin_bottom = 22.0
+
+[node name="Button" type="Button" parent="EditorContainer/Main/UpperBar/Stats"]
+visible = false
+margin_right = 103.0
+margin_bottom = 20.0
+text = "Browse dict...."
+
+[node name="GlobalDict" type="Label" parent="EditorContainer/Main/UpperBar/Stats"]
+margin_right = 293.0
+margin_bottom = 22.0
+text = "No global dictionary selected"
+
+[node name="HS" type="HSeparator" parent="EditorContainer/Main/UpperBar"]
+margin_top = 26.0
+margin_right = 1020.0
+margin_bottom = 32.0
+custom_constants/separation = 6
+
+[node name="StartScreen" type="CenterContainer" parent="EditorContainer/Main"]
+visible = false
+margin_top = 34.0
+margin_right = 1010.0
+margin_bottom = 534.0
+rect_min_size = Vector2( 0, 500 )
+
+[node name="InitControl" type="VBoxContainer" parent="EditorContainer/Main/StartScreen"]
+margin_left = 240.0
+margin_top = 28.0
+margin_right = 770.0
+margin_bottom = 471.0
+
+[node name="Inputs" type="VBoxContainer" parent="EditorContainer/Main/StartScreen/InitControl"]
+margin_right = 526.0
+margin_bottom = 283.0
+
+[node name="Label" type="Label" parent="EditorContainer/Main/StartScreen/InitControl/Inputs"]
+margin_right = 526.0
+margin_bottom = 43.0
+text = "Select actor's dictionary, portraits,
+and portraits' region_rect function"
+
+[node name="HSeparator" type="HSeparator" parent="EditorContainer/Main/StartScreen/InitControl/Inputs"]
+margin_top = 47.0
+margin_right = 526.0
+margin_bottom = 52.0
+custom_constants/separation = 5
+
+[node name="Dict" type="HBoxContainer" parent="EditorContainer/Main/StartScreen/InitControl/Inputs"]
+margin_top = 56.0
+margin_right = 526.0
+margin_bottom = 82.0
+
+[node name="Button" type="Button" parent="EditorContainer/Main/StartScreen/InitControl/Inputs/Dict"]
+margin_right = 102.0
+margin_bottom = 26.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Browse..."
+
+[node name="Label" type="Label" parent="EditorContainer/Main/StartScreen/InitControl/Inputs/Dict"]
+modulate = Color( 1, 1, 1, 0.564706 )
+margin_left = 106.0
+margin_top = 3.0
+margin_right = 526.0
+margin_bottom = 23.0
+text = "Godot TextFile ( *.tres  ) as a dictionary"
+
+[node name="Portrait" type="HBoxContainer" parent="EditorContainer/Main/StartScreen/InitControl/Inputs"]
+margin_top = 86.0
+margin_right = 526.0
+margin_bottom = 112.0
+
+[node name="Button" type="Button" parent="EditorContainer/Main/StartScreen/InitControl/Inputs/Portrait"]
+margin_right = 102.0
+margin_bottom = 26.0
+text = "Browse..."
+
+[node name="Label" type="Label" parent="EditorContainer/Main/StartScreen/InitControl/Inputs/Portrait"]
+modulate = Color( 1, 1, 1, 0.564706 )
+margin_left = 106.0
+margin_top = 3.0
+margin_right = 366.0
+margin_bottom = 23.0
+text = "Image File ( *.png *.jpg )"
+
+[node name="Function" type="HBoxContainer" parent="EditorContainer/Main/StartScreen/InitControl/Inputs"]
+margin_top = 116.0
+margin_right = 526.0
+margin_bottom = 146.0
+
+[node name="Button" type="Button" parent="EditorContainer/Main/StartScreen/InitControl/Inputs/Function"]
+visible = false
+margin_right = 71.0
+margin_bottom = 20.0
+text = "Browse..."
+
+[node name="Label" type="Label" parent="EditorContainer/Main/StartScreen/InitControl/Inputs/Function"]
+visible = false
+modulate = Color( 1, 1, 1, 0.564706 )
+margin_right = 326.0
+margin_bottom = 14.0
+text = "GDScript ( *.gd ) with the region_rect crop function "
+
+[node name="LineEdit" type="LineEdit" parent="EditorContainer/Main/StartScreen/InitControl/Inputs/Function"]
+margin_right = 140.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 140, 0 )
+placeholder_text = "Function Name"
+
+[node name="Label2" type="Label" parent="EditorContainer/Main/StartScreen/InitControl/Inputs/Function"]
+modulate = Color( 1, 1, 1, 0.564706 )
+margin_left = 144.0
+margin_top = 5.0
+margin_right = 304.0
+margin_bottom = 25.0
+text = "return a Rect2()"
+
+[node name="FunctionArg" type="VBoxContainer" parent="EditorContainer/Main/StartScreen/InitControl/Inputs"]
+margin_top = 150.0
+margin_right = 526.0
+margin_bottom = 214.0
+
+[node name="Size" type="HBoxContainer" parent="EditorContainer/Main/StartScreen/InitControl/Inputs/FunctionArg"]
+margin_right = 526.0
+margin_bottom = 30.0
+alignment = 1
+
+[node name="Label" type="Label" parent="EditorContainer/Main/StartScreen/InitControl/Inputs/FunctionArg/Size"]
+margin_left = 54.0
+margin_top = 5.0
+margin_right = 94.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 40, 0 )
+text = "Size"
+
+[node name="Label3" type="Label" parent="EditorContainer/Main/StartScreen/InitControl/Inputs/FunctionArg/Size"]
+margin_left = 98.0
+margin_top = 5.0
+margin_right = 138.0
+margin_bottom = 25.0
+text = " X :"
+
+[node name="SpinBox" type="SpinBox" parent="EditorContainer/Main/StartScreen/InitControl/Inputs/FunctionArg/Size"]
+margin_left = 142.0
+margin_right = 288.0
+margin_bottom = 30.0
+
+[node name="Label2" type="Label" parent="EditorContainer/Main/StartScreen/InitControl/Inputs/FunctionArg/Size"]
+margin_left = 292.0
+margin_top = 5.0
+margin_right = 322.0
+margin_bottom = 25.0
+text = "Y :"
+
+[node name="SpinBox2" type="SpinBox" parent="EditorContainer/Main/StartScreen/InitControl/Inputs/FunctionArg/Size"]
+margin_left = 326.0
+margin_right = 472.0
+margin_bottom = 30.0
+
+[node name="Offset" type="HBoxContainer" parent="EditorContainer/Main/StartScreen/InitControl/Inputs/FunctionArg"]
+margin_top = 34.0
+margin_right = 526.0
+margin_bottom = 64.0
+alignment = 1
+
+[node name="Label" type="Label" parent="EditorContainer/Main/StartScreen/InitControl/Inputs/FunctionArg/Offset"]
+margin_left = 44.0
+margin_top = 5.0
+margin_right = 104.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 40, 0 )
+text = "Offset"
+
+[node name="Label3" type="Label" parent="EditorContainer/Main/StartScreen/InitControl/Inputs/FunctionArg/Offset"]
+margin_left = 108.0
+margin_top = 5.0
+margin_right = 148.0
+margin_bottom = 25.0
+text = " X :"
+
+[node name="SpinBox" type="SpinBox" parent="EditorContainer/Main/StartScreen/InitControl/Inputs/FunctionArg/Offset"]
+margin_left = 152.0
+margin_right = 298.0
+margin_bottom = 30.0
+
+[node name="Label2" type="Label" parent="EditorContainer/Main/StartScreen/InitControl/Inputs/FunctionArg/Offset"]
+margin_left = 302.0
+margin_top = 5.0
+margin_right = 332.0
+margin_bottom = 25.0
+text = "Y :"
+
+[node name="SpinBox2" type="SpinBox" parent="EditorContainer/Main/StartScreen/InitControl/Inputs/FunctionArg/Offset"]
+margin_left = 336.0
+margin_right = 482.0
+margin_bottom = 30.0
+
+[node name="Templates" type="HBoxContainer" parent="EditorContainer/Main/StartScreen/InitControl/Inputs"]
+margin_top = 218.0
+margin_right = 526.0
+margin_bottom = 244.0
+
+[node name="Label" type="Label" parent="EditorContainer/Main/StartScreen/InitControl/Inputs/Templates"]
+visible = false
+margin_top = 3.0
+margin_right = 121.0
+margin_bottom = 17.0
+text = "No template saved"
+
+[node name="SaveBtn" type="Button" parent="EditorContainer/Main/StartScreen/InitControl/Inputs/Templates"]
+margin_right = 52.0
+margin_bottom = 26.0
+disabled = true
+text = "Save"
+
+[node name="LoadBtn" type="Button" parent="EditorContainer/Main/StartScreen/InitControl/Inputs/Templates"]
+margin_left = 56.0
+margin_right = 108.0
+margin_bottom = 26.0
+text = "Load"
+
+[node name="OpenBtn" type="Button" parent="EditorContainer/Main/StartScreen/InitControl/Inputs"]
+margin_top = 248.0
+margin_right = 526.0
+margin_bottom = 274.0
+disabled = true
+text = "Open"
+
+[node name="HSeparator2" type="HSeparator" parent="EditorContainer/Main/StartScreen/InitControl/Inputs"]
+margin_top = 278.0
+margin_right = 526.0
+margin_bottom = 283.0
+custom_constants/separation = 5
+
+[node name="LogContainer" type="VBoxContainer" parent="EditorContainer/Main/StartScreen/InitControl"]
+margin_top = 287.0
+margin_right = 526.0
+margin_bottom = 431.0
+
+[node name="Label" type="Label" parent="EditorContainer/Main/StartScreen/InitControl/LogContainer"]
+margin_right = 526.0
+margin_bottom = 20.0
+text = "Log:"
+
+[node name="Logs" type="RichTextLabel" parent="EditorContainer/Main/StartScreen/InitControl/LogContainer"]
+margin_top = 24.0
+margin_right = 526.0
+margin_bottom = 144.0
+rect_min_size = Vector2( 0, 120 )
+bbcode_enabled = true
+scroll_following = true
+
+[node name="MainEditor" type="HBoxContainer" parent="EditorContainer/Main"]
+margin_top = 36.0
+margin_right = 1020.0
+margin_bottom = 571.0
+rect_min_size = Vector2( 0, 535 )
+
+[node name="VSeparator" type="VSeparator" parent="EditorContainer/Main/MainEditor"]
+margin_right = 14.0
+margin_bottom = 535.0
+custom_constants/separation = 14
+
+[node name="DialogueSets" type="HBoxContainer" parent="EditorContainer/Main/MainEditor"]
+margin_left = 18.0
+margin_right = 233.0
+margin_bottom = 535.0
+
+[node name="PanelContainer" type="PanelContainer" parent="EditorContainer/Main/MainEditor/DialogueSets"]
+margin_right = 215.0
+margin_bottom = 535.0
+rect_min_size = Vector2( 170, 0 )
+
+[node name="Main" type="VBoxContainer" parent="EditorContainer/Main/MainEditor/DialogueSets/PanelContainer"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 213.0
+margin_bottom = 535.0
+
+[node name="Label" type="Label" parent="EditorContainer/Main/MainEditor/DialogueSets/PanelContainer/Main"]
+margin_right = 211.0
+margin_bottom = 22.0
+text = "Dialogue Sets"
+
+[node name="Add" type="HBoxContainer" parent="EditorContainer/Main/MainEditor/DialogueSets/PanelContainer/Main"]
+margin_top = 26.0
+margin_right = 211.0
+margin_bottom = 52.0
+
+[node name="Create" type="Button" parent="EditorContainer/Main/MainEditor/DialogueSets/PanelContainer/Main/Add"]
+margin_right = 109.0
+margin_bottom = 26.0
+text = "Create new"
+
+[node name="Browse" type="Button" parent="EditorContainer/Main/MainEditor/DialogueSets/PanelContainer/Main/Add"]
+margin_left = 113.0
+margin_right = 211.0
+margin_bottom = 26.0
+text = "Browse..."
+
+[node name="HSeparator" type="HSeparator" parent="EditorContainer/Main/MainEditor/DialogueSets/PanelContainer/Main"]
+margin_top = 56.0
+margin_right = 211.0
+margin_bottom = 60.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EditorContainer/Main/MainEditor/DialogueSets/PanelContainer/Main"]
+margin_top = 64.0
+margin_right = 211.0
+margin_bottom = 90.0
+
+[node name="Button" type="Button" parent="EditorContainer/Main/MainEditor/DialogueSets/PanelContainer/Main/VBoxContainer"]
+margin_right = 211.0
+margin_bottom = 26.0
+toggle_mode = true
+text = "Godette-Godotto"
+clip_text = true
+align = 0
+
+[node name="VSeparator2" type="VSeparator" parent="EditorContainer/Main/MainEditor"]
+margin_left = 237.0
+margin_right = 251.0
+margin_bottom = 535.0
+custom_constants/separation = 14
+
+[node name="EditorSet" type="HBoxContainer" parent="EditorContainer/Main/MainEditor"]
+margin_left = 255.0
+margin_right = 533.0
+margin_bottom = 535.0
+rect_min_size = Vector2( 270, 0 )
+
+[node name="0" parent="EditorContainer/Main/MainEditor/EditorSet" instance=ExtResource( 2 )]
+margin_right = 278.0
+margin_bottom = 535.0
+rect_min_size = Vector2( 270, 0 )
+
+[node name="VSeparator3" type="VSeparator" parent="EditorContainer/Main/MainEditor"]
+margin_left = 537.0
+margin_right = 551.0
+margin_bottom = 535.0
+custom_constants/separation = 14
+
+[node name="GlblDictTree" type="Tree" parent="EditorContainer/Main/MainEditor"]
+margin_left = 555.0
+margin_right = 825.0
+margin_bottom = 535.0
+rect_min_size = Vector2( 270, 0 )
+columns = 2
+column_titles_visible = true
+
+[node name="BottomBar" type="HBoxContainer" parent="EditorContainer/Main"]
+margin_top = 575.0
+margin_right = 1020.0
+margin_bottom = 597.0
+alignment = 2
+
+[node name="Credit" type="Label" parent="EditorContainer/Main/BottomBar"]
+margin_left = 892.0
+margin_right = 1012.0
+margin_bottom = 22.0
+text = "nnda.itch.io"
+
+[node name="VSeparator" type="VSeparator" parent="EditorContainer/Main/BottomBar"]
+margin_left = 1016.0
+margin_right = 1020.0
+margin_bottom = 22.0
+
+[node name="DimBG" type="ColorRect" parent="."]
+visible = false
+margin_left = -40.0
+margin_top = -32.0
+margin_right = 1104.0
+margin_bottom = 648.0
+color = Color( 0, 0, 0, 0.509804 )
+
+[node name="BrowseDict" type="FileDialog" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 104.0
+margin_top = 56.0
+margin_right = -80.0
+margin_bottom = -32.0
+rect_min_size = Vector2( 150, 52.5 )
+popup_exclusive = true
+window_title = "Open a File"
+resizable = true
+mode = 0
+access = 2
+filters = PoolStringArray( "*.tres" )
+
+[node name="BrowseScript" type="FileDialog" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 104.0
+margin_top = 56.0
+margin_right = -80.0
+margin_bottom = -32.0
+rect_min_size = Vector2( 150, 52.5 )
+popup_exclusive = true
+window_title = "Open a File"
+resizable = true
+mode = 0
+access = 2
+filters = PoolStringArray( "*.gd" )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+visible = false
+margin_left = 439.0
+margin_top = 44.0
+margin_right = 748.0
+margin_bottom = 470.0
+
+[connection signal="pressed" from="EditorContainer/Main/StartScreen/InitControl/Inputs/Dict/Button" to="." method="_on_BrowseDict_pressed"]
+[connection signal="pressed" from="EditorContainer/Main/StartScreen/InitControl/Inputs/Function/Button" to="." method="_on_BrowseScript_pressed"]
+[connection signal="file_selected" from="BrowseDict" to="." method="_on_BrowseDict_file_selected"]
+[connection signal="popup_hide" from="BrowseDict" to="." method="_dimmed_popup_hide"]
+[connection signal="file_selected" from="BrowseScript" to="." method="_on_BrowseScript_file_selected"]
+[connection signal="popup_hide" from="BrowseScript" to="." method="_dimmed_popup_hide"]

@@ -1,0 +1,28 @@
+{
+	"robin" : {
+		"label"			: "Robin",
+		"expressions" : {
+			"sad-talking" : [0,0],
+			"neutral" : [0,0],
+			"happy-talking" : [0,0],
+			},
+	},
+
+	"john" : {
+		"label"			: "John",
+		"expressions" : {
+			"happy-talking" : [0,0],
+			"smiled" : [0,0],
+			"smiled-teeth" : [0,0],
+			},
+	},
+
+	"maya" : {
+		"label"			: "Maya",
+		"expressions" : {
+			"neutral" : [0,0],
+			"neutral-talking" : [0,0],
+			"pokerface" : [0,0],
+			},
+	},
+}

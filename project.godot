@@ -11,6 +11,7 @@ config_version=4
 [application]
 
 config/name="nnda's Dialogue Set Editor"
+run/main_scene="res://Scene/MainApp.tscn"
 boot_splash/image="res://logo_large_monochrome_dark.png"
 config/icon="res://icon.png"
 

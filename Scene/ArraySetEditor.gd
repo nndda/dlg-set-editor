@@ -6,7 +6,7 @@ var target_set_file : String
 var default_lines = []
 
 func update_set_lines():
-	if !glbl.current_dlg_dict.empty():
+	if !glbl.dict_chr.empty():
 		default_lines = glbl.get_default_lines()
 	glbl.current_set = local_set
 #	load_set()

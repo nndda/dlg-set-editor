@@ -6,3 +6,4 @@ margin_right = 29.0
 margin_bottom = 44.0
 rect_min_size = Vector2( 140, 0 )
 text = "Expression"
+clip_text = true

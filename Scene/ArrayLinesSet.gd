@@ -3,22 +3,26 @@ extends Control
 var loading = true
 var target = ""
 
+#										#	lord, I apologize for this abomination of a variable,
+#										#	I am sure theres a better way, but am just too lazy
 onready var parent_editor					= self.get_parent().get_parent().get_parent().get_parent()
+
 onready var target_set						= parent_editor.local_set
 
-onready var step_label						= self.get_node("Data/Editor/PanelContainer/RearrangeCtrl/StepLabel")
+onready var step_label						= self.get_node("VBoxContainer/HBoxContainer/PanelContainer/RearrangeCtrl/StepLabel")
 
-onready var actor_portrait					= self.get_node("Data/Editor/Actor/Portrait/Sprite")
-onready var actor_name_option				= self.get_node("Data/Editor/Actor/Name")
-onready var actor_expression_option			= self.get_node("Data/Editor/Actor/Expression")
+onready var actor_portrait					= self.get_node("VBoxContainer/HBoxContainer/VBoxContainer/Editor/Actor/Portrait/TextureRect")
+onready var actor_name_option				= self.get_node("VBoxContainer/HBoxContainer/VBoxContainer/Editor/Actor/Name")
+onready var actor_expression_option			= self.get_node("VBoxContainer/HBoxContainer/VBoxContainer/Editor/Actor/Expression")
 
-onready var lines							= self.get_node("Data/Editor/LinesEditor/Lines")
+onready var lines							= self.get_node("VBoxContainer/HBoxContainer/VBoxContainer/Editor/LinesEditor/Lines")
 
-onready var using_quote_option				= self.get_node("Data/Editor/LinesEditor/SubOptions/UseQuote")
+onready var using_quote_option				= self.get_node("VBoxContainer/HBoxContainer/VBoxContainer/Editor/SubOptions/UseQuote")
 
-#onready var move_node						= self.get_node("Data/Editor/PanelContainer/RearrangeCtrl")
-onready var move_up							= self.get_node("Data/Editor/PanelContainer/RearrangeCtrl/MoveUp")
-onready var move_down						= self.get_node("Data/Editor/PanelContainer/RearrangeCtrl/MoveDown")
+#onready var move_node						= self.get_node("VBoxContainer/HBoxContainer/PanelContainer/RearrangeCtrl")
+onready var move_up							= self.get_node("VBoxContainer/HBoxContainer/PanelContainer/RearrangeCtrl/MoveUp")
+onready var move_down						= self.get_node("VBoxContainer/HBoxContainer/PanelContainer/RearrangeCtrl/MoveDown")
+onready var delete							= self.get_node("VBoxContainer/HBoxContainer/VBoxContainer/Editor/SubOptions/Delete")
 
 var expressions_id = {}
 var names_id = {}
@@ -28,8 +32,9 @@ var data_set = false
 var pass_ready = false
 
 func portrait_fit_scale():
-	actor_portrait.scale.x = 128 / actor_portrait.texture.get_width()
-	actor_portrait.scale.y = actor_portrait.scale.x
+#	actor_portrait.scale.x = 128 / actor_portrait.texture.get_width()
+#	actor_portrait.scale.y = actor_portrait.scale.x
+	pass
 
 
 
@@ -39,12 +44,14 @@ func get_local_line():
 		target_set[ self.get_position_in_parent() * 4 + 1 ],
 		target_set[ self.get_position_in_parent() * 4 + 2 ],
 		target_set[ self.get_position_in_parent() * 4 + 3 ]
-	]
+		]
 
 
 
 func _ready():
-	portrait_fit_scale()
+	var atlas_tex = AtlasTexture.new()
+	actor_portrait.texture = atlas_tex
+#	portrait_fit_scale()
 	self.refresh_data()
 
 
@@ -65,17 +72,17 @@ func set_lines_var():
 
 
 func _process(_delta):
-	if self.visible and glbl.current_dlg_dict != null:
+#	if self.visible and glbl.dict_chr != null:
+	if self.visible and glbl.current_dict != null:
 		step_label.text = str( self.get_position_in_parent() )
 
 		if !loading:
 #			if glbl.current_set_use_expr:
 			set_lines_var()
+			set_portrait_img()
 
 		else:
-
 			if self.data_set:
-
 				actor_name_option.select(
 					actor_name_option.get_item_index(
 						self.names_id[ target_set[ self.get_position_in_parent() * 4 ] ]
@@ -96,7 +103,7 @@ func _process(_delta):
 
 				loading = false
 
-		$"Data/Editor/LinesEditor/SubOptions/Delete".disabled = !self.get_parent().get_child_count() > 1
+		delete.disabled = !self.get_parent().get_child_count() > 1
 
 		move_up.disabled = !self.get_position_in_parent() != 0
 		move_down.disabled = !self.get_position_in_parent() + 1 != self.get_parent().get_child_count()
@@ -107,49 +114,55 @@ func _process(_delta):
 
 
 func refresh_data():
+#	actor_portrait.texture = glbl.current_portrait
+	actor_portrait.texture.set_atlas( glbl.current_portrait )
 	portrait_fit_scale()
-	if !glbl.current_dlg_dict.empty():
+	if !glbl.dict_chr.empty():
 		actor_name_option.clear()
-		for actor_name in ( glbl.current_dlg_dict.keys().size() ):
+		for actor_name in ( glbl.dict_chr.keys().size() ):
 			actor_name_option.add_item(
 				str(
-					glbl.current_dlg_dict.keys()[ actor_name ]
+					glbl.dict_chr.keys()[ actor_name ]
 					),
 				actor_name
-			)
+				)
 
 			self.names_id[ str(
-					glbl.current_dlg_dict.keys()[ actor_name ]
+					glbl.dict_chr.keys()[ actor_name ]
 					) ] = actor_name
 
 		self._on_Name_item_selected( actor_name_option.get_item_index( 0 ) )
 		self.data_set = true
+	print( glbl.portrait_crop( 0, 0 ) )
 
 
 
 func _on_Name_item_selected(index):
-	if glbl.current_dlg_dict != null:
-		if !glbl.current_dlg_dict.empty() and glbl.current_set_use_expr:
+	if glbl.dict_chr != null:
+		if !glbl.dict_chr.empty() and glbl.current_set_use_expr:
 
 			self.expressions_id.clear()
 			actor_expression_option.clear()
 
 			for expression in (
-				glbl.current_dlg_dict[ actor_name_option.get_item_text( index ) ][
+				glbl.dict_chr[ actor_name_option.get_item_text( index ) ][
 					"expressions"
 					].keys().size()
 				):
 
 					actor_expression_option.add_item(
-						glbl.current_dlg_dict[
+						glbl.dict_chr[
 							actor_name_option.get_item_text( index )
 							]["expressions"].keys()[ expression ],
 							expression
 						)
 
-					self.expressions_id[str(glbl.current_dlg_dict[
+					self.expressions_id[str(glbl.dict_chr[
 							actor_name_option.get_item_text( index )
 							]["expressions"].keys()[ expression ])] = expression
+
+#			emit_signal("_on_Expression_item_selected")
+#			set_portrait_img()
 
 
 func move_up_set():
@@ -193,3 +206,27 @@ func _on_Duplicate_pressed():
 
 func _on_AddBelow_pressed():
 	pass
+
+
+func _on_Expression_item_selected(_index):
+	# Setting portrait
+	self.set_portrait_img()
+func set_portrait_img():
+
+	if actor_expression_option.get_item_text( actor_expression_option.selected ) != "_empty":
+
+		actor_portrait.texture.set_region( glbl.portrait_crop(
+
+			glbl.dict_chr[
+				actor_name_option.get_item_text( actor_name_option.selected ) ]["expressions"][
+					actor_expression_option.get_item_text( actor_expression_option.selected ) ][0],
+
+			glbl.dict_chr[
+				actor_name_option.get_item_text( actor_name_option.selected ) ]["expressions"][
+					actor_expression_option.get_item_text( actor_expression_option.selected ) ][1]
+
+			) )
+
+	else:
+		actor_portrait.texture.set_region( Rect2(0,0,0,0) )
+

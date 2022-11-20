@@ -5,3 +5,4 @@ margin_right = 29.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 140, 0 )
 text = "Actor's Name"
+clip_text = true

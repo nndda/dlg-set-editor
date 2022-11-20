@@ -1,0 +1,10 @@
+[
+	"robin_the_unfinished", "neutral-talking",
+		"Nothing seems wrong with the debugger panel", true,
+
+	"godette", "annoyed",
+		"Sure, the project is running, there's no error. but these npc shouldn't behave like that...", true,
+
+	"robin_the_unfinished", "panic-talking",
+		"We can try the remote debug, maybe we can figured something out by taking a look into the codes while its running.", true
+]

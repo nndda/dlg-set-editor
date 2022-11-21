@@ -2,7 +2,7 @@
 
 	"_CONFIG" : {
 		"use_portraits"	: true,
-		"use_custom_color"	: false,
+		"use_custom_color"	: true,
 		"use_custom_speed"	: false,
 		"portrait_size_px"	: [400,400],
 		"portrait_size_grid": [4,2],
@@ -15,7 +15,7 @@
 			"expressions" : {
 				"_empty"	: [-1,-1],
 				},
-			"color"				: [1.0,1.0,1.0],
+			"color"				: [0,0,0],
 			"speed"				: 1.0,
 			},
 
@@ -28,7 +28,7 @@
 				"happy-talking-3"	: [2,0],
 				"annoyed"	: [3,0],
 				},
-			"color"				: [1.0,1.0,1.0],
+			"color"				: [0,255,255],
 			"speed"				: 1.0,
 			},
 
@@ -41,7 +41,7 @@
 				"happy-talking"	: [2,1],
 				"panic-talking"	: [3,1],
 				},
-			"color"				: [1.0,1.0,1.0],
+			"color"				: [0,0,255],
 			"speed"				: 1.0,
 			},
 
@@ -52,7 +52,7 @@
 				"neutral"		: [0,3],
 				"neutral-talking" : [1,3],
 				},
-			"color"				: [1.0,1.0,1.0],
+			"color"				: [0,0,0],
 			"speed"				: 1.0,
 			},
 
@@ -63,7 +63,7 @@
 				"happy-talking"	: [0,2],
 				"smiled"		: [1,2],
 				},
-			"color"				: [1.0,1.0,1.0],
+			"color"				: [0,255,255],
 			"speed"				: 1.0,
 			},
 

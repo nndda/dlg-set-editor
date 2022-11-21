@@ -2,6 +2,55 @@ extends Node
 
 #	idk if im using the right words for naming the variables and stuff
 
+
+
+#	Configurations for the apps
+var settings_filename = "preferences.cfg"
+var default_settings = {
+		"auto_backup":{
+			"active":true,
+			"interval":15,
+			"copies":12,
+		},
+		"error_fix":{
+			"active":true,
+			"_config":true,
+			"_chr_missing":true,
+			"_chr_blank":true,
+			"_expr_missing":true,
+			"_expr_blank":true,
+		}
+	}
+var current_settings = {}
+
+func read_settings():
+	var app_cfg = File.new()
+
+	if app_cfg.file_exists( "user://" + glbl.settings_filename ):
+
+		app_cfg.open( "user://" + glbl.settings_filename , File.READ)
+		if str2var( app_cfg.get_as_text() ) is Dictionary:
+			glbl.current_settings = str2var( app_cfg.get_as_text() )
+		else:
+			push_error("invalid preferences" + glbl.settings_filename )
+
+	else: # First time setting settings
+
+		app_cfg.open( "user://" + glbl.settings_filename , File.WRITE )
+		app_cfg.store_string( var2str( glbl.default_settings ) )
+		app_cfg.flush()
+		glbl.current_settings = str2var( app_cfg.get_as_text() )
+		app_cfg.close()
+
+func write_settings():
+	var app_cfg = File.new()
+
+	app_cfg.open( "user://" + glbl.settings_filename , File.WRITE )
+	app_cfg.store_string( var2str( glbl.default_settings ) )
+	app_cfg.close()
+
+
+
 var color_theme = Color8(97,236,240)
 
 var current_set_use_expr = true
@@ -26,6 +75,7 @@ func portrait_crop(
 	row : int	):
 #	( ( size.x / column ) * portrait column )	+ gap.x
 #	( ( size.y / row ) * portrait row )		+ gap.y
+#	print( "cropping portrait at : " + str( Vector2( column, row ) ) )
 	glbl.set_portrait_gap()
 	return Rect2(
 		( ( glbl.portrait_size.x / glbl.portrait_grid_size.x ) * column ) + glbl.portrait_gap.x,
@@ -66,3 +116,10 @@ func get_default_lines():
 		"",
 		true
 		]
+
+var main_app
+var panel_dictionary
+var panel_sets_list
+var panel_set_editor
+func _ready():
+	glbl.read_settings()

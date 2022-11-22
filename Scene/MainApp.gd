@@ -15,7 +15,7 @@ onready var img_browse_btn	= config_files.get_node("Portrait/Button")
 
 onready var load_btn = $"StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/Templates/Load/Button"
 
-onready var crop_arg = $"StartScreen/CenterContainer/VBoxContainer/TabContainer/Sets Editor/Inputs/FunctionArg"
+#onready var crop_arg = $"StartScreen/CenterContainer/VBoxContainer/TabContainer/Sets Editor/Inputs/FunctionArg"
 
 onready var tooltip_label = $"StartScreen/CenterContainer/VBoxContainer/HintTooltip/LabelText"
 
@@ -93,7 +93,7 @@ func _build_dict_tree(
 	show_blank = false
 	):
 
-	var icon_size = 16
+#	var icon_size = 16
 
 	dict_raw.text = var2str( glbl.current_dict )
 
@@ -322,6 +322,8 @@ func verify_dict( target ):
 				glbl.current_dict._CONFIG.portrait_size_px[1]
 			)
 
+			dict_filepath = glbl.dict_filepath
+			dict_filename = glbl.dict_filename
 			glbl.set_dict_properties()
 
 #			crop_arg.get_node("Size/X").value = glbl.current_dict._CONFIG.portrait_size_px[0]
@@ -393,14 +395,15 @@ func _on_BrowseImg_file_selected(path):
 
 
 func _on_Gap_value_changed(_value):
-	glbl.portrait_grid_size = Vector2(
-		crop_arg.get_node("Gap/X").value,
-		crop_arg.get_node("Gap/Y").value
-		)
-	glbl.portrait_chr_size = Vector2(
-		crop_arg.get_node("Size/X").value,
-		crop_arg.get_node("Size/Y").value
-		)
+	pass
+#	glbl.portrait_grid_size = Vector2(
+#		crop_arg.get_node("Gap/X").value,
+#		crop_arg.get_node("Gap/Y").value
+#		)
+#	glbl.portrait_chr_size = Vector2(
+#		crop_arg.get_node("Size/X").value,
+#		crop_arg.get_node("Size/Y").value
+#		)
 
 
 func start_editor():

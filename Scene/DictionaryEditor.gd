@@ -10,6 +10,9 @@ onready var actor_name_option = dict_chr_panel.get_node("Current/Options")
 
 var names_id = {}
 
+#		ONLY USE dict_chr AND dict_cfg
+#		AND NOT DIRECTLY TO current_dict
+
 func refresh_data():
 	if !glbl.dict_chr.empty():
 		actor_name_option.clear()
@@ -25,25 +28,14 @@ func refresh_data():
 					glbl.dict_chr.keys()[ actor_name ]
 					) ] = actor_name
 
-#		self._on_Name_item_selected( actor_name_option.get_item_index( 0 ) )
-
-#			crop_arg.get_node("Size/X").value = glbl.current_dict._CONFIG.portrait_size_px[0]
-#			crop_arg.get_node("Size/Y").value = glbl.current_dict._CONFIG.portrait_size_px[1]
-
-#			crop_arg.get_node("Gap/X").value = glbl.current_dict._CONFIG.portrait_size_grid[0]
-#			crop_arg.get_node("Gap/Y").value = glbl.current_dict._CONFIG.portrait_size_grid[1]
 func _ready():
 	glbl.panel_dictionary = self
-func _process(_delta):
-	pass
-#	actor_name_option.get_parent().get_node("Delete").disabled = actor_name_option.get_item_text( actor_name_option.selected ) == "_BLANK"
-
 
 func _on_CharacterEditor_visibility_changed():
 	refresh_data()
 
 
-func _on_DictionaryPanel_tab_selected(tab):
+func _on_DictionaryPanel_tab_selected(_tab):
 	pass # Replace with function body.
 
 func UpdateDictContent():

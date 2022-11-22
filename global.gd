@@ -2,8 +2,6 @@ extends Node
 
 #	idk if im using the right words for naming the variables and stuff
 
-
-
 #	Configurations for the apps
 var settings_filename = "preferences.cfg"
 var default_settings = {
@@ -24,6 +22,7 @@ var default_settings = {
 var current_settings = {}
 
 func read_settings():
+	$AutoBackup.stop()
 	var app_cfg = File.new()
 
 	if app_cfg.file_exists( "user://" + glbl.settings_filename ):
@@ -41,6 +40,12 @@ func read_settings():
 		app_cfg.flush()
 		glbl.current_settings = str2var( app_cfg.get_as_text() )
 		app_cfg.close()
+
+	if glbl.current_settings.auto_backup.active:
+		$AutoBackup.set_wait_time( glbl.current_settings.auto_backup.interval )
+		$AutoBackup.start()
+	else:
+		$AutoBackup.stop()
 
 func write_settings():
 	var app_cfg = File.new()
@@ -89,13 +94,26 @@ func portrait2vec2( target: Array ):
 	return Vector2( target[0], target[1] )
 
 
+
+var dict_filepath = ""
+var dict_filename = ""
+
 var current_dict = { }
 var dict_chr = { }
 var dict_cfg = {}
 func set_dict_properties():
 	glbl.dict_chr = glbl.current_dict.characters
 	glbl.dict_cfg = glbl.current_dict._CONFIG
+func save_dict_properties( save_file = false ):
+	glbl.current_dict.characters = glbl.dict_chr
+	glbl.current_dict._CONFIG = glbl.dict_cfg
+	if !save_file:
+		var DictSave = File.new()
+		DictSave.open( glbl.dict_filepath, File.WRITE )
+		DictSave.store_string( var2str( glbl.current_dict ) )
 
+
+var line_length = 5
 
 var current_sets = []
 
@@ -114,7 +132,8 @@ func get_default_lines():
 		glbl.dict_chr.keys()[0],
 		glbl.dict_chr[ glbl.dict_chr.keys()[0] ]["expressions"].keys()[0],
 		"",
-		true
+		true,
+		1.0
 		]
 
 var main_app

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Scene/ArrayLinesSet_Name.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scene/ArrayLinesSet_Expression.tscn" type="PackedScene" id=2]
@@ -28,15 +28,6 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxEmpty" id=10]
-
-[sub_resource type="StyleBoxFlat" id=7]
-bg_color = Color( 0, 0, 0, 0.25098 )
-corner_radius_top_left = 10
-corner_radius_bottom_left = 10
-expand_margin_left = 3.0
-expand_margin_right = 3.0
-expand_margin_top = 10.0
-expand_margin_bottom = 10.0
 
 [sub_resource type="StyleBoxEmpty" id=4]
 
@@ -79,37 +70,38 @@ script = ExtResource( 3 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 3.0
-margin_right = 506.0
+margin_right = 512.0
 margin_bottom = 208.0
 
 [node name="HS" type="HSeparator" parent="VBoxContainer"]
-margin_right = 503.0
+margin_right = 509.0
 margin_bottom = 6.0
 custom_constants/separation = 6
 custom_styles/separator = SubResource( 10 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 10.0
-margin_right = 503.0
+margin_right = 509.0
 margin_bottom = 198.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer"]
-margin_right = 26.0
+margin_right = 32.0
 margin_bottom = 188.0
 rect_min_size = Vector2( 24, 0 )
-custom_styles/panel = SubResource( 7 )
 
 [node name="RearrangeCtrl" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/PanelContainer"]
-margin_right = 26.0
-margin_bottom = 188.0
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 29.0
+margin_bottom = 185.0
 alignment = 1
 
 [node name="MoveUp" type="Button" parent="VBoxContainer/HBoxContainer/PanelContainer/RearrangeCtrl"]
-margin_top = 22.0
+margin_top = 19.0
 margin_right = 26.0
-margin_bottom = 46.0
+margin_bottom = 43.0
 rect_min_size = Vector2( 26, 0 )
 mouse_filter = 1
 mouse_default_cursor_shape = 2
@@ -119,35 +111,35 @@ expand_icon = true
 script = ExtResource( 14 )
 
 [node name="HS" type="HSeparator" parent="VBoxContainer/HBoxContainer/PanelContainer/RearrangeCtrl"]
-margin_top = 50.0
+margin_top = 47.0
 margin_right = 26.0
-margin_bottom = 86.0
+margin_bottom = 83.0
 mouse_filter = 1
 custom_constants/separation = 36
 custom_styles/separator = SubResource( 4 )
 
 [node name="StepLabel" type="Label" parent="VBoxContainer/HBoxContainer/PanelContainer/RearrangeCtrl"]
 modulate = Color( 0.380392, 0.92549, 0.941176, 1 )
-margin_top = 90.0
+margin_top = 87.0
 margin_right = 26.0
-margin_bottom = 108.0
+margin_bottom = 105.0
 mouse_filter = 1
 custom_fonts/font = SubResource( 12 )
 text = "0"
 align = 1
 
 [node name="HS2" type="HSeparator" parent="VBoxContainer/HBoxContainer/PanelContainer/RearrangeCtrl"]
-margin_top = 112.0
+margin_top = 109.0
 margin_right = 26.0
-margin_bottom = 138.0
+margin_bottom = 135.0
 mouse_filter = 1
 custom_constants/separation = 26
 custom_styles/separator = SubResource( 4 )
 
 [node name="MoveDown" type="Button" parent="VBoxContainer/HBoxContainer/PanelContainer/RearrangeCtrl"]
-margin_top = 142.0
+margin_top = 139.0
 margin_right = 26.0
-margin_bottom = 166.0
+margin_bottom = 163.0
 rect_min_size = Vector2( 26, 0 )
 mouse_filter = 1
 mouse_default_cursor_shape = 2
@@ -157,8 +149,8 @@ expand_icon = true
 script = ExtResource( 14 )
 
 [node name="VBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
-margin_left = 30.0
-margin_right = 503.0
+margin_left = 36.0
+margin_right = 509.0
 margin_bottom = 188.0
 size_flags_horizontal = 3
 
@@ -224,6 +216,7 @@ rect_min_size = Vector2( 160, 0 )
 mouse_filter = 1
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 9
+flat = true
 script = ExtResource( 14 )
 
 [node name="Expression" parent="VBoxContainer/HBoxContainer/VBoxContainer/Editor/Actor" instance=ExtResource( 2 )]
@@ -233,6 +226,7 @@ margin_bottom = 188.0
 rect_min_size = Vector2( 160, 0 )
 mouse_filter = 1
 mouse_default_cursor_shape = 2
+flat = true
 script = ExtResource( 14 )
 
 [node name="HS2" type="VSeparator" parent="VBoxContainer/HBoxContainer/VBoxContainer/Editor"]
@@ -263,16 +257,7 @@ margin_bottom = 24.0
 mouse_filter = 1
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
-script = ExtResource( 14 )
-
-[node name="Expression" parent="VBoxContainer/HBoxContainer/VBoxContainer/Editor/LinesEditor/ActorNoPortrait" instance=ExtResource( 2 )]
-visible = false
-margin_left = 144.0
-margin_top = 0.0
-margin_right = 284.0
-margin_bottom = 24.0
-mouse_filter = 1
-mouse_default_cursor_shape = 2
+flat = true
 script = ExtResource( 14 )
 
 [node name="HS2" type="HSeparator" parent="VBoxContainer/HBoxContainer/VBoxContainer/Editor/LinesEditor"]
@@ -314,6 +299,7 @@ mouse_default_cursor_shape = 2
 custom_styles/pressed = ExtResource( 12 )
 toggle_mode = true
 icon = ExtResource( 10 )
+flat = true
 expand_icon = true
 script = ExtResource( 14 )
 
@@ -327,11 +313,11 @@ mouse_default_cursor_shape = 2
 custom_styles/pressed = ExtResource( 12 )
 toggle_mode = true
 icon = ExtResource( 17 )
+flat = true
 expand_icon = true
 script = ExtResource( 14 )
 
 [node name="Speed" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/Editor/SubOptions"]
-visible = false
 margin_top = 28.0
 margin_right = 26.0
 margin_bottom = 52.0
@@ -340,34 +326,48 @@ mouse_default_cursor_shape = 2
 custom_styles/pressed = ExtResource( 12 )
 toggle_mode = true
 icon = ExtResource( 16 )
+flat = true
 expand_icon = true
 script = ExtResource( 14 )
 
-[node name="HS" type="HSeparator" parent="VBoxContainer/HBoxContainer/VBoxContainer/Editor/SubOptions"]
-margin_top = 28.0
-margin_right = 26.0
-margin_bottom = 32.0
+[node name="SpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/Editor/SubOptions/Speed"]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -144.0
+margin_right = -26.0
+max_value = 5.0
+value = 1.0
+align = 1
 
-[node name="Delete" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/Editor/SubOptions"]
-margin_top = 36.0
+[node name="HS" type="HSeparator" parent="VBoxContainer/HBoxContainer/VBoxContainer/Editor/SubOptions"]
+margin_top = 56.0
 margin_right = 26.0
 margin_bottom = 60.0
+
+[node name="Delete" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/Editor/SubOptions"]
+margin_top = 64.0
+margin_right = 26.0
+margin_bottom = 88.0
 rect_min_size = Vector2( 24, 0 )
 mouse_default_cursor_shape = 2
 toggle_mode = true
 icon = ExtResource( 11 )
+flat = true
 expand_icon = true
 script = ExtResource( 14 )
 
 [node name="Duplicate" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/Editor/SubOptions"]
-margin_top = 64.0
+margin_top = 92.0
 margin_right = 26.0
-margin_bottom = 88.0
+margin_bottom = 116.0
 rect_min_size = Vector2( 26, 0 )
 hint_tooltip = "Duplicate this dialogue line"
 mouse_filter = 1
 mouse_default_cursor_shape = 2
 icon = ExtResource( 15 )
+flat = true
 icon_align = 1
 expand_icon = true
 script = ExtResource( 14 )
@@ -382,6 +382,7 @@ hint_tooltip = "Add dialogue line below"
 mouse_filter = 1
 mouse_default_cursor_shape = 2
 icon = ExtResource( 13 )
+flat = true
 icon_align = 1
 expand_icon = true
 script = ExtResource( 14 )
@@ -396,7 +397,7 @@ custom_styles/separator = ExtResource( 4 )
 
 [node name="HS2" type="HSeparator" parent="VBoxContainer"]
 margin_top = 202.0
-margin_right = 503.0
+margin_right = 509.0
 margin_bottom = 208.0
 custom_constants/separation = 6
 custom_styles/separator = SubResource( 10 )

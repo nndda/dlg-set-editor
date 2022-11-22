@@ -13,7 +13,10 @@ onready var step_label						= self.get_node("VBoxContainer/HBoxContainer/PanelCo
 
 onready var actor_portrait					= self.get_node("VBoxContainer/HBoxContainer/VBoxContainer/Editor/Actor/Portrait/TextureRect")
 onready var actor_name_option				= self.get_node("VBoxContainer/HBoxContainer/VBoxContainer/Editor/Actor/Name")
+onready var actor_name_option_nop			= self.get_node("VBoxContainer/HBoxContainer/VBoxContainer/Editor/Actor/Name")
 onready var actor_expression_option			= self.get_node("VBoxContainer/HBoxContainer/VBoxContainer/Editor/Actor/Expression")
+
+onready var speed_value_input				= self.get_node("VBoxContainer/HBoxContainer/VBoxContainer/Editor/SubOptions/Speed/SpinBox")
 
 onready var lines							= self.get_node("VBoxContainer/HBoxContainer/VBoxContainer/Editor/LinesEditor/Lines")
 
@@ -34,6 +37,16 @@ var data_set = false
 
 var pass_ready = false
 
+
+
+#	stuff for color property, idk what other approach to this
+var ccolor = Color8( 0, 0, 0, 40 )
+onready var cstylebox = StyleBoxFlat.new()
+
+
+
+
+
 func portrait_fit_scale():
 #	actor_portrait.scale.x = 128 / actor_portrait.texture.get_width()
 #	actor_portrait.scale.y = actor_portrait.scale.x
@@ -43,42 +56,50 @@ func portrait_fit_scale():
 
 func get_local_line():
 	return [
-		target_set[ self.get_position_in_parent() * 4 ],
-		target_set[ self.get_position_in_parent() * 4 + 1 ],
-		target_set[ self.get_position_in_parent() * 4 + 2 ],
-		target_set[ self.get_position_in_parent() * 4 + 3 ]
+		target_set[ self.get_position_in_parent() * glbl.line_length ],
+		target_set[ self.get_position_in_parent() * glbl.line_length + 1 ],
+		target_set[ self.get_position_in_parent() * glbl.line_length + 2 ],
+		target_set[ self.get_position_in_parent() * glbl.line_length + 3 ],
+		target_set[ self.get_position_in_parent() * glbl.line_length + 4 ]
 		]
 
 
 
 func _ready():
+	cstylebox.set_corner_radius_individual( 10, 0, 0, 10 )
+	cstylebox.set_expand_margin_individual( 3, 10, 3, 10 )
+	cstylebox.set_bg_color( ccolor )
+
+	$"VBoxContainer/HBoxContainer/PanelContainer".add_stylebox_override( "panel", cstylebox)
+
 	var atlas_tex = AtlasTexture.new()
 	actor_portrait.texture = atlas_tex
-#	portrait_fit_scale()
+
 	self.refresh_data()
 
 
 
 func set_lines_var():
 		target_set[
-				self.get_position_in_parent() * 4
+				self.get_position_in_parent() * glbl.line_length
 				] = actor_name_option.get_item_text( actor_name_option.selected )
 		target_set[
-				self.get_position_in_parent() * 4 + 1
+				self.get_position_in_parent() * glbl.line_length + 1
 				] = actor_expression_option.get_item_text( actor_expression_option.selected )
 		target_set[
-				self.get_position_in_parent() * 4 + 2
+				self.get_position_in_parent() * glbl.line_length + 2
 				] = lines.text
 		target_set[
-				self.get_position_in_parent() * 4 + 3
+				self.get_position_in_parent() * glbl.line_length + 3
 				] = using_quote_option.pressed
-
+		target_set[
+				self.get_position_in_parent() * glbl.line_length + 4
+				] = float( speed_value_input.value )
 
 func _process(_delta):
 
-
-#	if self.visible and glbl.dict_chr != null:
-	if self.visible and glbl.current_dict != null:
+	if self.visible and glbl.dict_chr != null:
+#	if self.visible and glbl.current_dict != null:
 		step_label.text = str( self.get_position_in_parent() )
 
 		if !loading:
@@ -90,21 +111,22 @@ func _process(_delta):
 			if self.data_set:
 				actor_name_option.select(
 					actor_name_option.get_item_index(
-						self.names_id[ target_set[ self.get_position_in_parent() * 4 ] ]
+						self.names_id[ target_set[ self.get_position_in_parent() * glbl.line_length ] ]
 						)
 					)
 				self._on_Name_item_selected( actor_name_option.get_item_index( 
 					actor_name_option.get_item_index(
 						self.names_id[
-							target_set[ self.get_position_in_parent() * 4 ]
+							target_set[ self.get_position_in_parent() * glbl.line_length ]
 							] ) ) )
 				actor_expression_option.select(
 					actor_expression_option.get_item_index(
 						self.expressions_id[
-							target_set[ self.get_position_in_parent() * 4 + 1 ]
+							target_set[ self.get_position_in_parent() * glbl.line_length + 1 ]
 							] ) )
-				lines.text												= target_set[ self.get_position_in_parent() * 4 + 2 ]
-				using_quote_option.pressed								= target_set[ self.get_position_in_parent() * 4 + 3 ]
+				lines.text					= target_set[ self.get_position_in_parent() * glbl.line_length + 2 ]
+				using_quote_option.pressed	= target_set[ self.get_position_in_parent() * glbl.line_length + 3 ]
+				speed_value_input.value		= target_set[ self.get_position_in_parent() * glbl.line_length + 4 ]
 
 				loading = false
 
@@ -118,6 +140,7 @@ func _process(_delta):
 
 		actor_name_option.get_parent().visible = glbl.dict_cfg.use_portraits
 		actor_name_option.get_parent().get_parent().get_node("HS2").visible = glbl.dict_cfg.use_portraits
+		$VBoxContainer/HBoxContainer/VBoxContainer/Editor/LinesEditor/ActorNoPortrait.visible = !actor_name_option.get_parent().visible
 
 		using_color_option.disabled = glbl.dict_cfg.use_custom_color
 		using_color_option.visible = glbl.dict_cfg.use_custom_color
@@ -127,11 +150,42 @@ func _process(_delta):
 
 
 
+		if glbl.dict_cfg.use_custom_color:
+			ccolor = Color8(
+			glbl.dict_chr[ target_set[
+				self.get_position_in_parent() * glbl.line_length
+				] ].color[0],
+			glbl.dict_chr[ target_set[
+				self.get_position_in_parent() * glbl.line_length
+				] ].color[1],
+			glbl.dict_chr[ target_set[
+				self.get_position_in_parent() * glbl.line_length
+				] ].color[2]
+			)
+		else:
+			ccolor = Color8( 0, 0, 0, 40 )
+		cstylebox.set_bg_color( ccolor )
+
+
+
+		
+
+
 #		actor_expression_option.visible = glbl.current_set_use_expr
 #		actor_portrait.visible = glbl.current_set_use_expr
 #		actor_expression_option.visible = glbl.current_set_use_expr
 #		actor_portrait.visible = glbl.current_set_use_expr
 
+
+
+#func set_color( character ):
+#	if glbl.dict_chr[ character ].color is Array:
+#		var color_var = Color8(
+#			glbl.dict_chr[ character ].color[0],
+#			glbl.dict_chr[ character ].color[1],
+#			glbl.dict_chr[ character ].color[2]
+#			)
+#		$VBoxContainer/HBoxContainer/PanelContainer.bg_color
 
 
 func refresh_data():
@@ -202,23 +256,25 @@ func _on_self_visibility_changed():
 	self.refresh_data()
 
 func _on_Delete_pressed():
-	for _remv in range( 4 ):
-		target_set.remove( self.get_position_in_parent() * 4 )
+	for _remv in range( glbl.line_length ):
+		target_set.remove( self.get_position_in_parent() * glbl.line_length )
 	self.queue_free()
 
 func _on_Duplicate_pressed():
-	if target_set.size() < self.get_position_in_parent() * 4:
+	if target_set.size() < self.get_position_in_parent() * glbl.line_length:
 		glbl.current_set.append_array( parent_editor.default_lines )
 
 	else:
-		glbl.current_set.insert( ( self.get_position_in_parent() * ( 4 + 0 ) ) ,
+		glbl.current_set.insert( ( self.get_position_in_parent() * ( glbl.line_length + 0 ) ) ,
 			parent_editor.default_lines[0] )
-		glbl.current_set.insert( ( self.get_position_in_parent() * ( 4 + 0 ) ) + 0 ,
+		glbl.current_set.insert( ( self.get_position_in_parent() * ( glbl.line_length + 0 ) ) + 0 ,
 			parent_editor.default_lines[1] )
-		glbl.current_set.insert( ( self.get_position_in_parent() * ( 4 + 0 ) ) + 0 ,
+		glbl.current_set.insert( ( self.get_position_in_parent() * ( glbl.line_length + 0 ) ) + 0 ,
 			parent_editor.default_lines[2] )
-		glbl.current_set.insert( ( self.get_position_in_parent() * ( 4 + 0 ) ) + 0 ,
-			parent_editor.default_lines[3])
+		glbl.current_set.insert( ( self.get_position_in_parent() * ( glbl.line_length + 0 ) ) + 0 ,
+			parent_editor.default_lines[3] )
+		glbl.current_set.insert( ( self.get_position_in_parent() * ( glbl.line_length + 0 ) ) + 0 ,
+			parent_editor.default_lines[4] )
 
 	parent_editor.get_node(
 		"Editor/ScrollContainer/ArrayData"

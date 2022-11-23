@@ -6,8 +6,8 @@ onready var dict_raw = dict_content_view.get_node("Raw")
 
 onready var log_node = $"StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/LogContainer/Logs"
 
-onready var dict_stat_hint = $EditorContainer/Main/UpperBar/Stats/GlobalDict
-onready var img_stat_hint = $EditorContainer/Main/UpperBar/Stats/GlobalPortrait
+onready var dict_stat_hint = $"EditorContainer/Main/UpperBar/Stats/GlobalDict"
+onready var img_stat_hint = $"EditorContainer/Main/UpperBar/Stats/GlobalPortrait"
 
 onready var config_files	= $"StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn"
 onready var dict_browse_btn	= config_files.get_node("Dict/Button")
@@ -15,14 +15,9 @@ onready var img_browse_btn	= config_files.get_node("Portrait/Button")
 
 onready var load_btn = $"StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/Templates/Load/Button"
 
-#onready var crop_arg = $"StartScreen/CenterContainer/VBoxContainer/TabContainer/Sets Editor/Inputs/FunctionArg"
-
 onready var tooltip_label = $"StartScreen/CenterContainer/VBoxContainer/HintTooltip/LabelText"
 
 func _ready():
-#	print("contrast 0,0,0" + str(Color8(0,0,0).contrasted()))
-#	print("contrast 0,255,0" + str(Color8(0,255,0).contrasted()))
-#	print("contrast 255,0,0" + str(Color8(255,0,0).contrasted()))
 	glbl.main_app = self
 	glbl.current_dict = null
 	dict_stat_hint.text = "No global dictionary selected"
@@ -34,11 +29,13 @@ func log_start(message :String):
 
 func _process(_delta):
 
+
 	$StartScreen.visible = !$MainEditor.visible
 	$TextureRect.visible = $StartScreen.visible
 
 
 	if $StartScreen.visible:
+
 		# Or the "Start" button
 		load_btn.disabled = (
 			glbl.current_dict == null or
@@ -47,6 +44,7 @@ func _process(_delta):
 				glbl.current_portrait == null
 				)
 			)
+
 
 		dict_browse_btn.get_node("../OK").visible = glbl.current_dict != null
 		if glbl.current_dict != null:
@@ -73,6 +71,7 @@ func _process(_delta):
 		else:
 			img_browse_btn.text = " Select portraits"
 			img_browse_btn.set_pressed(false)
+
 
 		glbl.dict_cfg.use_custom_color = config_files.get_node("Color/Use").pressed
 		glbl.dict_cfg.use_custom_speed = config_files.get_node("Speed/Use").pressed
@@ -296,7 +295,7 @@ func verify_dict( target ):
 
 		if passes == 0:
 			log_start( "[color=#61ecf0]Dictionary verified:[/color] " + "[" + str( dict_filename ) + "] "  + str( actor_count ) + " Actors, " + str( expression_count ) + " Expressions, " )
-#			glbl.dict_chr = target2chr
+
 			glbl.current_dict = target
 			dict_stat_hint.text = "[" + str( dict_filename ) + "] " + str( actor_count ) + " Characters, " + str( expression_count ) + " Expressions, "
 
@@ -325,13 +324,6 @@ func verify_dict( target ):
 			dict_filepath = glbl.dict_filepath
 			dict_filename = glbl.dict_filename
 			glbl.set_dict_properties()
-
-#			crop_arg.get_node("Size/X").value = glbl.current_dict._CONFIG.portrait_size_px[0]
-#			crop_arg.get_node("Size/Y").value = glbl.current_dict._CONFIG.portrait_size_px[1]
-
-#			crop_arg.get_node("Gap/X").value = glbl.current_dict._CONFIG.portrait_size_grid[0]
-#			crop_arg.get_node("Gap/Y").value = glbl.current_dict._CONFIG.portrait_size_grid[1]
-
 
 			_build_dict_tree()
 
@@ -390,20 +382,8 @@ func _on_BrowseImg_file_selected(path):
 
 	filewww.close()
 
-#	filewww.flush()
 	verify_img( ImegTex )
 
-
-func _on_Gap_value_changed(_value):
-	pass
-#	glbl.portrait_grid_size = Vector2(
-#		crop_arg.get_node("Gap/X").value,
-#		crop_arg.get_node("Gap/Y").value
-#		)
-#	glbl.portrait_chr_size = Vector2(
-#		crop_arg.get_node("Size/X").value,
-#		crop_arg.get_node("Size/Y").value
-#		)
 
 
 func start_editor():
@@ -425,6 +405,6 @@ func _on_UseCustomSpeed_pressed():
 
 
 
-
 func setcrawler_tester():
 	$MainEditor/DlgSetsPanel/Main/SetCrawler._look_for( 0, "godette" )
+

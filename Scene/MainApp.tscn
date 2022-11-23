@@ -41,6 +41,19 @@ expand_margin_top = 24.0
 
 [sub_resource type="StyleBoxEmpty" id=7]
 
+[sub_resource type="Theme" id=9]
+Button/colors/font_color_disabled = Color( 0.380392, 0.92549, 0.941176, 1 )
+Button/colors/font_color_pressed = Color( 0.380392, 0.92549, 0.941176, 1 )
+Button/styles/disabled = ExtResource( 15 )
+Button/styles/hover = ExtResource( 12 )
+Button/styles/normal = ExtResource( 13 )
+Button/styles/pressed = ExtResource( 14 )
+
+[sub_resource type="AtlasTexture" id=10]
+flags = 4
+atlas = ExtResource( 23 )
+region = Rect2( 60, 60, 400, 400 )
+
 [sub_resource type="StyleBoxEmpty" id=3]
 
 [sub_resource type="StyleBoxFlat" id=5]
@@ -62,19 +75,6 @@ shadow_size = 7
 
 [sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 1, 1, 1, 0.113725 )
-
-[sub_resource type="Theme" id=9]
-Button/colors/font_color_disabled = Color( 0.380392, 0.92549, 0.941176, 1 )
-Button/colors/font_color_pressed = Color( 0.380392, 0.92549, 0.941176, 1 )
-Button/styles/disabled = ExtResource( 15 )
-Button/styles/hover = ExtResource( 12 )
-Button/styles/normal = ExtResource( 13 )
-Button/styles/pressed = ExtResource( 14 )
-
-[sub_resource type="AtlasTexture" id=10]
-flags = 4
-atlas = ExtResource( 23 )
-region = Rect2( 60, 60, 400, 400 )
 
 [node name="MainApp" type="Control"]
 anchor_right = 1.0
@@ -181,606 +181,7 @@ margin_right = 1008.0
 margin_bottom = 34.0
 custom_constants/separation = 6
 
-[node name="StartScreen" type="PanelContainer" parent="."]
-anchor_top = 0.067
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -36.468
-custom_styles/panel = SubResource( 3 )
-
-[node name="CenterContainer" type="CenterContainer" parent="StartScreen"]
-margin_right = 1024.0
-margin_bottom = 600.0
-rect_min_size = Vector2( 0, 500 )
-
-[node name="VBoxContainer" type="VBoxContainer" parent="StartScreen/CenterContainer"]
-margin_left = 299.0
-margin_top = 98.0
-margin_right = 724.0
-margin_bottom = 502.0
-custom_constants/separation = 16
-
-[node name="TabContainer" type="TabContainer" parent="StartScreen/CenterContainer/VBoxContainer"]
-margin_right = 425.0
-margin_bottom = 370.0
-custom_styles/panel = SubResource( 5 )
-tab_align = 0
-
-[node name="Editor" type="VBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 28.0
-rect_min_size = Vector2( 425, 342 )
-
-[node name="HSeparator" type="HSeparator" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor"]
-margin_right = 425.0
-margin_bottom = 5.0
-custom_constants/separation = 5
-custom_styles/separator = ExtResource( 6 )
-
-[node name="Inputs" type="VBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor"]
-margin_top = 9.0
-margin_right = 425.0
-margin_bottom = 178.0
-
-[node name="Label" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs"]
-visible = false
-margin_right = 425.0
-margin_bottom = 39.0
-text = "Select actor's dictionary, portraits,
-and portraits' region_rect function"
-
-[node name="HSeparator" type="HSeparator" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs"]
-visible = false
-margin_right = 425.0
-margin_bottom = 5.0
-custom_constants/separation = 5
-
-[node name="BrowseBtn" type="VBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs"]
-margin_right = 425.0
-margin_bottom = 108.0
-
-[node name="Dict" type="HBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn"]
-margin_right = 425.0
-margin_bottom = 24.0
-
-[node name="Use" type="CheckBox" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict"]
-visible = false
-margin_right = 28.0
-margin_bottom = 24.0
-flat = true
-
-[node name="Button" type="Button" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict"]
-margin_right = 220.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 220, 0 )
-hint_tooltip = "Godot Text File ( *.tres *.res ) containing a dictionary"
-mouse_default_cursor_shape = 2
-toggle_mode = true
-text = " Select dictionary"
-icon = ExtResource( 5 )
-align = 0
-expand_icon = true
-script = ExtResource( 16 )
-
-[node name="Label" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict"]
-visible = false
-modulate = Color( 1, 1, 1, 0.564706 )
-margin_left = 224.0
-margin_top = 3.0
-margin_right = 526.0
-margin_bottom = 21.0
-text = "Godot TextFile ( *.tres  ) containing the dictionary"
-
-[node name="VSeparator" type="VSeparator" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict"]
-margin_left = 224.0
-margin_right = 229.0
-margin_bottom = 24.0
-custom_constants/separation = 5
-
-[node name="OK" type="HBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict"]
-margin_left = 233.0
-margin_right = 257.0
-margin_bottom = 24.0
-
-[node name="TextureRect" type="TextureRect" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict/OK"]
-modulate = Color( 0.380392, 0.92549, 0.941176, 1 )
-margin_right = 24.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 24, 24 )
-texture = ExtResource( 10 )
-expand = true
-
-[node name="Label" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict/OK"]
-visible = false
-modulate = Color( 1, 1, 1, 0.482353 )
-margin_left = 24.0
-margin_top = 3.0
-margin_right = 136.0
-margin_bottom = 21.0
-text = "sample_dict.tres"
-
-[node name="Portrait" type="HBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn"]
-margin_top = 28.0
-margin_right = 425.0
-margin_bottom = 52.0
-
-[node name="Use" type="CheckBox" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Portrait"]
-margin_right = 28.0
-margin_bottom = 24.0
-flat = true
-script = ExtResource( 16 )
-
-[node name="Button" type="Button" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Portrait"]
-margin_left = 32.0
-margin_right = 252.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 220, 0 )
-hint_tooltip = "Image File ( *.png  )"
-mouse_default_cursor_shape = 2
-toggle_mode = true
-text = " Select portrait"
-icon = ExtResource( 7 )
-align = 0
-expand_icon = true
-script = ExtResource( 16 )
-
-[node name="VSeparator" type="VSeparator" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Portrait"]
-margin_left = 256.0
-margin_right = 261.0
-margin_bottom = 24.0
-custom_constants/separation = 5
-
-[node name="OK" type="HBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Portrait"]
-margin_left = 265.0
-margin_right = 289.0
-margin_bottom = 24.0
-
-[node name="TextureRect" type="TextureRect" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Portrait/OK"]
-modulate = Color( 0.380392, 0.92549, 0.941176, 1 )
-margin_right = 24.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 24, 24 )
-texture = ExtResource( 10 )
-expand = true
-
-[node name="Label" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Portrait/OK"]
-visible = false
-modulate = Color( 1, 1, 1, 0.482353 )
-margin_left = 24.0
-margin_top = 3.0
-margin_right = 136.0
-margin_bottom = 21.0
-text = "sample_dict.tres"
-
-[node name="Label" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Portrait"]
-visible = false
-modulate = Color( 1, 1, 1, 0.564706 )
-margin_left = 173.0
-margin_top = 2.0
-margin_right = 337.0
-margin_bottom = 24.0
-text = " ( *.png *.jpg )"
-
-[node name="Color" type="HBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn"]
-margin_top = 56.0
-margin_right = 425.0
-margin_bottom = 80.0
-
-[node name="Use" type="CheckBox" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Color"]
-margin_right = 28.0
-margin_bottom = 24.0
-flat = true
-script = ExtResource( 16 )
-
-[node name="Button" type="Button" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Color"]
-margin_left = 32.0
-margin_right = 252.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 220, 0 )
-hint_tooltip = "Image File ( *.png  )"
-mouse_default_cursor_shape = 2
-toggle_mode = true
-text = " Use custom color"
-icon = ExtResource( 17 )
-align = 0
-expand_icon = true
-script = ExtResource( 16 )
-
-[node name="VSeparator" type="VSeparator" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Color"]
-margin_left = 256.0
-margin_right = 261.0
-margin_bottom = 24.0
-custom_constants/separation = 5
-
-[node name="Label" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Color"]
-visible = false
-modulate = Color( 1, 1, 1, 0.564706 )
-margin_left = 173.0
-margin_top = 2.0
-margin_right = 337.0
-margin_bottom = 24.0
-text = " ( *.png *.jpg )"
-
-[node name="Speed" type="HBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn"]
-margin_top = 84.0
-margin_right = 425.0
-margin_bottom = 108.0
-
-[node name="Use" type="CheckBox" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Speed"]
-margin_right = 28.0
-margin_bottom = 24.0
-flat = true
-script = ExtResource( 16 )
-
-[node name="Button" type="Button" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Speed"]
-margin_left = 32.0
-margin_right = 252.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 220, 0 )
-hint_tooltip = "Image File ( *.png  )"
-mouse_default_cursor_shape = 2
-toggle_mode = true
-text = " Use custom speed"
-icon = ExtResource( 18 )
-align = 0
-expand_icon = true
-script = ExtResource( 16 )
-
-[node name="VSeparator" type="VSeparator" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Speed"]
-margin_left = 256.0
-margin_right = 261.0
-margin_bottom = 24.0
-custom_constants/separation = 5
-
-[node name="Label" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Speed"]
-visible = false
-modulate = Color( 1, 1, 1, 0.564706 )
-margin_left = 173.0
-margin_top = 2.0
-margin_right = 337.0
-margin_bottom = 24.0
-text = " ( *.png *.jpg )"
-
-[node name="HSeparator3" type="HSeparator" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs"]
-margin_top = 112.0
-margin_right = 425.0
-margin_bottom = 118.0
-custom_constants/separation = 6
-custom_styles/separator = SubResource( 1 )
-
-[node name="FunctionArg" type="VBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs"]
-visible = false
-margin_top = 122.0
-margin_right = 425.0
-margin_bottom = 174.0
-alignment = 1
-
-[node name="Size" type="HBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/FunctionArg"]
-margin_right = 425.0
-margin_bottom = 24.0
-alignment = 1
-
-[node name="Label" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/FunctionArg/Size"]
-margin_left = 60.0
-margin_top = 3.0
-margin_right = 120.0
-margin_bottom = 21.0
-rect_min_size = Vector2( 60, 0 )
-text = "Size"
-
-[node name="X" type="SpinBox" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/FunctionArg/Size"]
-margin_left = 124.0
-margin_right = 242.0
-margin_bottom = 24.0
-min_value = 1.0
-max_value = 2048.0
-value = 1.0
-rounded = true
-allow_greater = true
-align = 1
-suffix = "px"
-
-[node name="Y" type="SpinBox" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/FunctionArg/Size"]
-margin_left = 246.0
-margin_right = 364.0
-margin_bottom = 24.0
-min_value = 1.0
-max_value = 2048.0
-value = 1.0
-rounded = true
-allow_greater = true
-align = 1
-suffix = "px"
-
-[node name="Gap" type="HBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/FunctionArg"]
-margin_top = 28.0
-margin_right = 425.0
-margin_bottom = 52.0
-alignment = 1
-
-[node name="Label" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/FunctionArg/Gap"]
-margin_left = 60.0
-margin_top = 3.0
-margin_right = 120.0
-margin_bottom = 21.0
-rect_min_size = Vector2( 60, 0 )
-text = "Grid"
-
-[node name="X" type="SpinBox" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/FunctionArg/Gap"]
-margin_left = 124.0
-margin_right = 242.0
-margin_bottom = 24.0
-min_value = 1.0
-max_value = 2048.0
-value = 1.0
-rounded = true
-allow_greater = true
-align = 1
-
-[node name="Y" type="SpinBox" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/FunctionArg/Gap"]
-margin_left = 246.0
-margin_right = 364.0
-margin_bottom = 24.0
-min_value = 1.0
-max_value = 2048.0
-value = 1.0
-rounded = true
-allow_greater = true
-align = 1
-
-[node name="HSeparator4" type="HSeparator" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs"]
-margin_top = 122.0
-margin_right = 425.0
-margin_bottom = 127.0
-custom_constants/separation = 5
-custom_styles/separator = SubResource( 6 )
-
-[node name="Templates" type="HBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs"]
-margin_top = 131.0
-margin_right = 425.0
-margin_bottom = 155.0
-custom_constants/separation = 10
-
-[node name="Label" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/Templates"]
-visible = false
-margin_left = 58.0
-margin_top = 2.0
-margin_right = 230.0
-margin_bottom = 24.0
-text = "No template saved"
-
-[node name="ClearBtn" type="Button" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/Templates"]
-visible = false
-margin_right = 50.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 50, 0 )
-text = "Clear"
-expand_icon = true
-
-[node name="LoadBtn" type="Button" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/Templates"]
-visible = false
-margin_left = 30.0
-margin_right = 70.0
-margin_bottom = 24.0
-text = "Load"
-
-[node name="Load" type="HBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/Templates"]
-margin_right = 47.0
-margin_bottom = 24.0
-alignment = 2
-
-[node name="Button" type="Button" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/Templates/Load"]
-margin_right = 47.0
-margin_bottom = 24.0
-mouse_default_cursor_shape = 2
-disabled = true
-text = "Start"
-expand_icon = true
-script = ExtResource( 16 )
-
-[node name="HSeparator2" type="HSeparator" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs"]
-margin_top = 159.0
-margin_right = 425.0
-margin_bottom = 169.0
-custom_constants/separation = 10
-
-[node name="LogContainer" type="VBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor"]
-margin_top = 182.0
-margin_right = 425.0
-margin_bottom = 342.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Label" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/LogContainer"]
-margin_right = 425.0
-margin_bottom = 18.0
-text = "Log:"
-
-[node name="Logs" type="RichTextLabel" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/LogContainer"]
-margin_top = 22.0
-margin_right = 425.0
-margin_bottom = 160.0
-rect_min_size = Vector2( 0, 120 )
-focus_mode = 2
-mouse_default_cursor_shape = 1
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/normal = SubResource( 4 )
-bbcode_enabled = true
-scroll_following = true
-selection_enabled = true
-
-[node name="Preferences" type="VBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 28.0
-rect_min_size = Vector2( 425, 342 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="HSeparator" type="HSeparator" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences"]
-margin_right = 425.0
-margin_bottom = 4.0
-
-[node name="AutoBackup" type="VBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences"]
-margin_top = 8.0
-margin_right = 425.0
-margin_bottom = 82.0
-
-[node name="Option" type="HBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/AutoBackup"]
-margin_right = 425.0
-margin_bottom = 18.0
-
-[node name="CheckBox" type="CheckBox" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/AutoBackup/Option"]
-margin_right = 98.0
-margin_bottom = 18.0
-custom_styles/normal = ExtResource( 6 )
-text = "Auto Backup"
-
-[node name="Interval" type="HBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/AutoBackup"]
-margin_top = 22.0
-margin_right = 425.0
-margin_bottom = 46.0
-
-[node name="Label" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/AutoBackup/Interval"]
-margin_top = 3.0
-margin_right = 210.0
-margin_bottom = 21.0
-size_flags_horizontal = 3
-size_flags_vertical = 6
-text = "Interval"
-
-[node name="SpinBox" type="SpinBox" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/AutoBackup/Interval"]
-margin_left = 214.0
-margin_right = 425.0
-margin_bottom = 24.0
-size_flags_horizontal = 3
-min_value = 15.0
-max_value = 120.0
-value = 15.0
-align = 1
-suffix = "minutes"
-
-[node name="Count" type="HBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/AutoBackup"]
-margin_top = 50.0
-margin_right = 425.0
-margin_bottom = 74.0
-
-[node name="Label" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/AutoBackup/Count"]
-margin_top = 3.0
-margin_right = 210.0
-margin_bottom = 21.0
-size_flags_horizontal = 3
-size_flags_vertical = 6
-text = "Copy"
-
-[node name="SpinBox" type="SpinBox" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/AutoBackup/Count"]
-margin_left = 214.0
-margin_right = 425.0
-margin_bottom = 24.0
-size_flags_horizontal = 3
-min_value = 1.0
-max_value = 12.0
-value = 3.0
-rounded = true
-align = 1
-
-[node name="HSeparator2" type="HSeparator" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences"]
-margin_top = 86.0
-margin_right = 425.0
-margin_bottom = 90.0
-
-[node name="ErrorFix" type="VBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences"]
-margin_top = 94.0
-margin_right = 425.0
-margin_bottom = 190.0
-
-[node name="Option" type="HBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/ErrorFix"]
-margin_right = 425.0
-margin_bottom = 18.0
-
-[node name="CheckBox" type="CheckBox" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/ErrorFix/Option"]
-margin_right = 120.0
-margin_bottom = 18.0
-custom_styles/normal = ExtResource( 6 )
-text = "Auto Fix Error"
-
-[node name="Dict" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/ErrorFix"]
-margin_top = 22.0
-margin_right = 425.0
-margin_bottom = 40.0
-size_flags_horizontal = 3
-size_flags_vertical = 6
-text = "Dictionary"
-
-[node name="DictChr" type="HBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/ErrorFix"]
-margin_top = 44.0
-margin_right = 425.0
-margin_bottom = 68.0
-
-[node name="Label" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/ErrorFix/DictChr"]
-margin_top = 3.0
-margin_right = 139.0
-margin_bottom = 21.0
-size_flags_horizontal = 3
-size_flags_vertical = 6
-text = "Characters"
-
-[node name="Value" type="CheckBox" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/ErrorFix/DictChr"]
-margin_left = 143.0
-margin_right = 282.0
-margin_bottom = 24.0
-size_flags_horizontal = 3
-text = "Blank"
-
-[node name="Value2" type="CheckBox" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/ErrorFix/DictChr"]
-margin_left = 286.0
-margin_right = 425.0
-margin_bottom = 24.0
-size_flags_horizontal = 3
-text = "Missing"
-
-[node name="DictExprssion" type="HBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/ErrorFix"]
-margin_top = 72.0
-margin_right = 425.0
-margin_bottom = 96.0
-
-[node name="Label" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/ErrorFix/DictExprssion"]
-margin_top = 3.0
-margin_right = 139.0
-margin_bottom = 21.0
-size_flags_horizontal = 3
-size_flags_vertical = 6
-text = "Expressions"
-
-[node name="Value" type="CheckBox" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/ErrorFix/DictExprssion"]
-margin_left = 143.0
-margin_right = 282.0
-margin_bottom = 24.0
-size_flags_horizontal = 3
-text = "Blank"
-
-[node name="Value2" type="CheckBox" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/ErrorFix/DictExprssion"]
-margin_left = 286.0
-margin_right = 425.0
-margin_bottom = 24.0
-size_flags_horizontal = 3
-text = "Missing"
-
-[node name="HintTooltip" type="VBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer"]
-margin_top = 386.0
-margin_right = 425.0
-margin_bottom = 404.0
-
-[node name="LabelText" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/HintTooltip"]
-margin_right = 425.0
-margin_bottom = 18.0
-text = "nnda.itch.io"
-
 [node name="MainEditor" type="HSplitContainer" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 8.0
@@ -790,7 +191,7 @@ margin_bottom = -8.0
 split_offset = 45
 
 [node name="DlgSetsPanel" type="PanelContainer" parent="MainEditor"]
-margin_right = 51.0
+margin_right = 143.0
 margin_bottom = 552.0
 
 [node name="Main" type="VBoxContainer" parent="MainEditor/DlgSetsPanel"]
@@ -854,12 +255,12 @@ theme = SubResource( 9 )
 script = ExtResource( 9 )
 
 [node name="Sets_Dict" type="HSplitContainer" parent="MainEditor"]
-margin_left = 63.0
+margin_left = 155.0
 margin_right = 1008.0
 margin_bottom = 552.0
 
 [node name="DlgEditorPanel" type="PanelContainer" parent="MainEditor/Sets_Dict"]
-margin_right = 6.0
+margin_right = 358.0
 margin_bottom = 552.0
 
 [node name="ArraySetEditor" parent="MainEditor/Sets_Dict/DlgEditorPanel" instance=ExtResource( 2 )]
@@ -871,8 +272,8 @@ rect_min_size = Vector2( 270, 0 )
 size_flags_horizontal = 3
 
 [node name="DictionaryPanel" type="TabContainer" parent="MainEditor/Sets_Dict"]
-margin_left = 18.0
-margin_right = 945.0
+margin_left = 370.0
+margin_right = 853.0
 margin_bottom = 552.0
 tab_align = 0
 script = ExtResource( 25 )
@@ -952,6 +353,7 @@ size_flags_vertical = 3
 tab_align = 0
 
 [node name="Content" type="VBoxContainer" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 3.0
@@ -1014,7 +416,6 @@ size_flags_vertical = 3
 selection_enabled = true
 
 [node name="Config" type="VBoxContainer" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 3.0
@@ -1465,6 +866,525 @@ margin_right = 107.0
 margin_bottom = 18.0
 text = "px"
 
+[node name="StartScreen" type="PanelContainer" parent="."]
+visible = false
+anchor_top = 0.067
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -36.468
+custom_styles/panel = SubResource( 3 )
+
+[node name="CenterContainer" type="CenterContainer" parent="StartScreen"]
+margin_right = 1024.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 0, 500 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StartScreen/CenterContainer"]
+margin_left = 470.0
+margin_top = 269.0
+margin_right = 554.0
+margin_bottom = 331.0
+custom_constants/separation = 16
+
+[node name="TabContainer" type="TabContainer" parent="StartScreen/CenterContainer/VBoxContainer"]
+margin_right = 425.0
+margin_bottom = 370.0
+custom_styles/panel = SubResource( 5 )
+tab_align = 0
+
+[node name="Editor" type="VBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 28.0
+rect_min_size = Vector2( 425, 342 )
+
+[node name="HSeparator" type="HSeparator" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor"]
+margin_right = 425.0
+margin_bottom = 5.0
+custom_constants/separation = 5
+custom_styles/separator = ExtResource( 6 )
+
+[node name="Inputs" type="VBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor"]
+margin_top = 9.0
+margin_right = 425.0
+margin_bottom = 178.0
+
+[node name="Label" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs"]
+visible = false
+margin_right = 425.0
+margin_bottom = 39.0
+text = "Select actor's dictionary, portraits,
+and portraits' region_rect function"
+
+[node name="HSeparator" type="HSeparator" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs"]
+visible = false
+margin_right = 425.0
+margin_bottom = 5.0
+custom_constants/separation = 5
+
+[node name="BrowseBtn" type="VBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs"]
+margin_right = 425.0
+margin_bottom = 108.0
+
+[node name="Dict" type="HBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn"]
+margin_right = 425.0
+margin_bottom = 24.0
+
+[node name="Use" type="CheckBox" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict"]
+visible = false
+margin_right = 28.0
+margin_bottom = 24.0
+flat = true
+
+[node name="Button" type="Button" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict"]
+margin_right = 220.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 220, 0 )
+hint_tooltip = "Godot Text File ( *.tres *.res ) containing a dictionary"
+mouse_default_cursor_shape = 2
+toggle_mode = true
+text = " Select dictionary"
+icon = ExtResource( 5 )
+align = 0
+expand_icon = true
+script = ExtResource( 16 )
+
+[node name="Label" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict"]
+visible = false
+modulate = Color( 1, 1, 1, 0.564706 )
+margin_left = 224.0
+margin_top = 3.0
+margin_right = 526.0
+margin_bottom = 21.0
+text = "Godot TextFile ( *.tres  ) containing the dictionary"
+
+[node name="VSeparator" type="VSeparator" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict"]
+margin_left = 224.0
+margin_right = 229.0
+margin_bottom = 24.0
+custom_constants/separation = 5
+
+[node name="OK" type="HBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict"]
+margin_left = 233.0
+margin_right = 257.0
+margin_bottom = 24.0
+
+[node name="TextureRect" type="TextureRect" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict/OK"]
+modulate = Color( 0.380392, 0.92549, 0.941176, 1 )
+margin_right = 24.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 24, 24 )
+texture = ExtResource( 10 )
+expand = true
+
+[node name="Label" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict/OK"]
+visible = false
+modulate = Color( 1, 1, 1, 0.482353 )
+margin_left = 24.0
+margin_top = 3.0
+margin_right = 136.0
+margin_bottom = 21.0
+text = "sample_dict.tres"
+
+[node name="Portrait" type="HBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn"]
+margin_top = 28.0
+margin_right = 425.0
+margin_bottom = 52.0
+
+[node name="Use" type="CheckBox" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Portrait"]
+margin_right = 28.0
+margin_bottom = 24.0
+flat = true
+script = ExtResource( 16 )
+
+[node name="Button" type="Button" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Portrait"]
+margin_left = 32.0
+margin_right = 252.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 220, 0 )
+hint_tooltip = "Image File ( *.png  )"
+mouse_default_cursor_shape = 2
+toggle_mode = true
+text = " Select portrait"
+icon = ExtResource( 7 )
+align = 0
+expand_icon = true
+script = ExtResource( 16 )
+
+[node name="VSeparator" type="VSeparator" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Portrait"]
+margin_left = 256.0
+margin_right = 261.0
+margin_bottom = 24.0
+custom_constants/separation = 5
+
+[node name="OK" type="HBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Portrait"]
+margin_left = 265.0
+margin_right = 289.0
+margin_bottom = 24.0
+
+[node name="TextureRect" type="TextureRect" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Portrait/OK"]
+modulate = Color( 0.380392, 0.92549, 0.941176, 1 )
+margin_right = 24.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 24, 24 )
+texture = ExtResource( 10 )
+expand = true
+
+[node name="Label" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Portrait/OK"]
+visible = false
+modulate = Color( 1, 1, 1, 0.482353 )
+margin_left = 24.0
+margin_top = 3.0
+margin_right = 136.0
+margin_bottom = 21.0
+text = "sample_dict.tres"
+
+[node name="Label" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Portrait"]
+visible = false
+modulate = Color( 1, 1, 1, 0.564706 )
+margin_left = 173.0
+margin_top = 2.0
+margin_right = 337.0
+margin_bottom = 24.0
+text = " ( *.png *.jpg )"
+
+[node name="Color" type="HBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn"]
+margin_top = 56.0
+margin_right = 425.0
+margin_bottom = 80.0
+
+[node name="Use" type="CheckBox" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Color"]
+margin_right = 28.0
+margin_bottom = 24.0
+flat = true
+script = ExtResource( 16 )
+
+[node name="Button" type="Button" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Color"]
+margin_left = 32.0
+margin_right = 252.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 220, 0 )
+hint_tooltip = "Image File ( *.png  )"
+mouse_default_cursor_shape = 2
+toggle_mode = true
+text = " Use custom color"
+icon = ExtResource( 17 )
+align = 0
+expand_icon = true
+script = ExtResource( 16 )
+
+[node name="VSeparator" type="VSeparator" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Color"]
+margin_left = 256.0
+margin_right = 261.0
+margin_bottom = 24.0
+custom_constants/separation = 5
+
+[node name="Label" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Color"]
+visible = false
+modulate = Color( 1, 1, 1, 0.564706 )
+margin_left = 173.0
+margin_top = 2.0
+margin_right = 337.0
+margin_bottom = 24.0
+text = " ( *.png *.jpg )"
+
+[node name="Speed" type="HBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn"]
+margin_top = 84.0
+margin_right = 425.0
+margin_bottom = 108.0
+
+[node name="Use" type="CheckBox" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Speed"]
+margin_right = 28.0
+margin_bottom = 24.0
+flat = true
+script = ExtResource( 16 )
+
+[node name="Button" type="Button" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Speed"]
+margin_left = 32.0
+margin_right = 252.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 220, 0 )
+hint_tooltip = "Image File ( *.png  )"
+mouse_default_cursor_shape = 2
+toggle_mode = true
+text = " Use custom speed"
+icon = ExtResource( 18 )
+align = 0
+expand_icon = true
+script = ExtResource( 16 )
+
+[node name="VSeparator" type="VSeparator" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Speed"]
+margin_left = 256.0
+margin_right = 261.0
+margin_bottom = 24.0
+custom_constants/separation = 5
+
+[node name="Label" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Speed"]
+visible = false
+modulate = Color( 1, 1, 1, 0.564706 )
+margin_left = 173.0
+margin_top = 2.0
+margin_right = 337.0
+margin_bottom = 24.0
+text = " ( *.png *.jpg )"
+
+[node name="HSeparator3" type="HSeparator" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs"]
+margin_top = 112.0
+margin_right = 425.0
+margin_bottom = 118.0
+custom_constants/separation = 6
+custom_styles/separator = SubResource( 1 )
+
+[node name="HSeparator4" type="HSeparator" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs"]
+margin_top = 122.0
+margin_right = 425.0
+margin_bottom = 127.0
+custom_constants/separation = 5
+custom_styles/separator = SubResource( 6 )
+
+[node name="Templates" type="HBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs"]
+margin_top = 131.0
+margin_right = 425.0
+margin_bottom = 155.0
+custom_constants/separation = 10
+
+[node name="Label" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/Templates"]
+visible = false
+margin_left = 58.0
+margin_top = 2.0
+margin_right = 230.0
+margin_bottom = 24.0
+text = "No template saved"
+
+[node name="ClearBtn" type="Button" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/Templates"]
+visible = false
+margin_right = 50.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 50, 0 )
+text = "Clear"
+expand_icon = true
+
+[node name="LoadBtn" type="Button" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/Templates"]
+visible = false
+margin_left = 30.0
+margin_right = 70.0
+margin_bottom = 24.0
+text = "Load"
+
+[node name="Load" type="HBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/Templates"]
+margin_right = 47.0
+margin_bottom = 24.0
+alignment = 2
+
+[node name="Button" type="Button" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/Templates/Load"]
+margin_right = 47.0
+margin_bottom = 24.0
+mouse_default_cursor_shape = 2
+disabled = true
+text = "Start"
+expand_icon = true
+script = ExtResource( 16 )
+
+[node name="HSeparator2" type="HSeparator" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs"]
+margin_top = 159.0
+margin_right = 425.0
+margin_bottom = 169.0
+custom_constants/separation = 10
+
+[node name="LogContainer" type="VBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor"]
+margin_top = 182.0
+margin_right = 425.0
+margin_bottom = 342.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/LogContainer"]
+margin_right = 425.0
+margin_bottom = 18.0
+text = "Log:"
+
+[node name="Logs" type="RichTextLabel" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/LogContainer"]
+margin_top = 22.0
+margin_right = 425.0
+margin_bottom = 160.0
+rect_min_size = Vector2( 0, 120 )
+focus_mode = 2
+mouse_default_cursor_shape = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/normal = SubResource( 4 )
+bbcode_enabled = true
+scroll_following = true
+selection_enabled = true
+
+[node name="Preferences" type="VBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 28.0
+rect_min_size = Vector2( 425, 342 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HSeparator" type="HSeparator" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences"]
+margin_right = 425.0
+margin_bottom = 4.0
+
+[node name="AutoBackup" type="VBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences"]
+margin_top = 8.0
+margin_right = 425.0
+margin_bottom = 82.0
+
+[node name="Option" type="HBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/AutoBackup"]
+margin_right = 425.0
+margin_bottom = 18.0
+
+[node name="CheckBox" type="CheckBox" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/AutoBackup/Option"]
+margin_right = 98.0
+margin_bottom = 18.0
+custom_styles/normal = ExtResource( 6 )
+text = "Auto Backup"
+
+[node name="Interval" type="HBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/AutoBackup"]
+margin_top = 22.0
+margin_right = 425.0
+margin_bottom = 46.0
+
+[node name="Label" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/AutoBackup/Interval"]
+margin_top = 3.0
+margin_right = 210.0
+margin_bottom = 21.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Interval"
+
+[node name="SpinBox" type="SpinBox" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/AutoBackup/Interval"]
+margin_left = 214.0
+margin_right = 425.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = 15.0
+max_value = 120.0
+value = 15.0
+align = 1
+suffix = "minutes"
+
+[node name="Count" type="HBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/AutoBackup"]
+margin_top = 50.0
+margin_right = 425.0
+margin_bottom = 74.0
+
+[node name="Label" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/AutoBackup/Count"]
+margin_top = 3.0
+margin_right = 210.0
+margin_bottom = 21.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Copy"
+
+[node name="SpinBox" type="SpinBox" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/AutoBackup/Count"]
+margin_left = 214.0
+margin_right = 425.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 12.0
+value = 3.0
+rounded = true
+align = 1
+
+[node name="HSeparator2" type="HSeparator" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences"]
+margin_top = 86.0
+margin_right = 425.0
+margin_bottom = 90.0
+
+[node name="ErrorFix" type="VBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences"]
+margin_top = 94.0
+margin_right = 425.0
+margin_bottom = 190.0
+
+[node name="Option" type="HBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/ErrorFix"]
+margin_right = 425.0
+margin_bottom = 18.0
+
+[node name="CheckBox" type="CheckBox" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/ErrorFix/Option"]
+margin_right = 120.0
+margin_bottom = 18.0
+custom_styles/normal = ExtResource( 6 )
+text = "Auto Fix Error"
+
+[node name="Dict" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/ErrorFix"]
+margin_top = 22.0
+margin_right = 425.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Dictionary"
+
+[node name="DictChr" type="HBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/ErrorFix"]
+margin_top = 44.0
+margin_right = 425.0
+margin_bottom = 68.0
+
+[node name="Label" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/ErrorFix/DictChr"]
+margin_top = 3.0
+margin_right = 139.0
+margin_bottom = 21.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Characters"
+
+[node name="Value" type="CheckBox" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/ErrorFix/DictChr"]
+margin_left = 143.0
+margin_right = 282.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+text = "Blank"
+
+[node name="Value2" type="CheckBox" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/ErrorFix/DictChr"]
+margin_left = 286.0
+margin_right = 425.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+text = "Missing"
+
+[node name="DictExprssion" type="HBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/ErrorFix"]
+margin_top = 72.0
+margin_right = 425.0
+margin_bottom = 96.0
+
+[node name="Label" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/ErrorFix/DictExprssion"]
+margin_top = 3.0
+margin_right = 139.0
+margin_bottom = 21.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Expressions"
+
+[node name="Value" type="CheckBox" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/ErrorFix/DictExprssion"]
+margin_left = 143.0
+margin_right = 282.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+text = "Blank"
+
+[node name="Value2" type="CheckBox" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/ErrorFix/DictExprssion"]
+margin_left = 286.0
+margin_right = 425.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+text = "Missing"
+
+[node name="HintTooltip" type="VBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer"]
+margin_top = 386.0
+margin_right = 425.0
+margin_bottom = 404.0
+
+[node name="LabelText" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/HintTooltip"]
+margin_right = 425.0
+margin_bottom = 18.0
+text = "nnda.itch.io"
+
 [node name="DimBG" type="ColorRect" parent="."]
 visible = false
 anchor_right = 1.0
@@ -1754,31 +1674,6 @@ margin_right = 447.0
 margin_bottom = 89.0
 text = "Look for godette on 0"
 
-[connection signal="mouse_entered" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict/Button" to="." method="set_tooltiphint" binds= [ "Godot Text File ( *.tres *.res ) containing a dictionary" ]]
-[connection signal="mouse_exited" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict/Button" to="." method="set_tooltiphint"]
-[connection signal="pressed" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict/Button" to="." method="_on_BrowseDict_pressed"]
-[connection signal="mouse_entered" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Portrait/Button" to="." method="set_tooltiphint" binds= [ "An image with the grid of characters' portraits" ]]
-[connection signal="mouse_exited" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Portrait/Button" to="." method="set_tooltiphint"]
-[connection signal="pressed" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Portrait/Button" to="." method="_on_BrowsePortrait_pressed"]
-[connection signal="pressed" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Color/Use" to="." method="_on_UseCustomColor_pressed"]
-[connection signal="pressed" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Color/Button" to="." method="_on_CustomColor_Button_pressed"]
-[connection signal="pressed" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Speed/Use" to="." method="_on_UseCustomSpeed_pressed"]
-[connection signal="pressed" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Speed/Button" to="." method="_on_CustomSpeed_Button_pressed"]
-[connection signal="mouse_entered" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/FunctionArg/Size/X" to="." method="set_tooltiphint" binds= [ "The size/dimension of each portrait" ]]
-[connection signal="mouse_exited" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/FunctionArg/Size/X" to="." method="set_tooltiphint"]
-[connection signal="value_changed" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/FunctionArg/Size/X" to="." method="_on_Gap_value_changed"]
-[connection signal="mouse_entered" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/FunctionArg/Size/Y" to="." method="set_tooltiphint" binds= [ "The size/dimension of each portrait" ]]
-[connection signal="mouse_exited" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/FunctionArg/Size/Y" to="." method="set_tooltiphint"]
-[connection signal="value_changed" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/FunctionArg/Size/Y" to="." method="_on_Gap_value_changed"]
-[connection signal="mouse_entered" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/FunctionArg/Gap/X" to="." method="set_tooltiphint" binds= [ "Column size of the portrait" ]]
-[connection signal="mouse_exited" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/FunctionArg/Gap/X" to="." method="set_tooltiphint"]
-[connection signal="value_changed" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/FunctionArg/Gap/X" to="." method="_on_Gap_value_changed"]
-[connection signal="mouse_entered" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/FunctionArg/Gap/Y" to="." method="set_tooltiphint" binds= [ "Row size of the portrait" ]]
-[connection signal="mouse_exited" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/FunctionArg/Gap/Y" to="." method="set_tooltiphint"]
-[connection signal="value_changed" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/FunctionArg/Gap/Y" to="." method="_on_Gap_value_changed"]
-[connection signal="mouse_entered" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/Templates/Load/Button" to="." method="set_tooltiphint" binds= [ "Start the set editor" ]]
-[connection signal="mouse_exited" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/Templates/Load/Button" to="." method="set_tooltiphint"]
-[connection signal="pressed" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/Templates/Load/Button" to="." method="start_editor"]
 [connection signal="pressed" from="MainEditor/DlgSetsPanel/Main/Add/Create" to="MainEditor/DlgSetsPanel/Main/SetList" method="_on_Create_pressed"]
 [connection signal="pressed" from="MainEditor/DlgSetsPanel/Main/Add/Browse" to="MainEditor/DlgSetsPanel/Main/SetList" method="_on_Browse_pressed"]
 [connection signal="tab_selected" from="MainEditor/Sets_Dict/DictionaryPanel" to="MainEditor/Sets_Dict/DictionaryPanel" method="_on_DictionaryPanel_tab_selected"]
@@ -1794,6 +1689,20 @@ text = "Look for godette on 0"
 [connection signal="pressed" from="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Config/use_custom_color" to="MainEditor/Sets_Dict/DictionaryPanel" method="_on_use_custom_color_pressed"]
 [connection signal="pressed" from="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Config/use_custom_speed" to="MainEditor/Sets_Dict/DictionaryPanel" method="_on_use_custom_speed_pressed"]
 [connection signal="visibility_changed" from="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Character" to="MainEditor/Sets_Dict/DictionaryPanel" method="_on_CharacterEditor_visibility_changed"]
+[connection signal="color_changed" from="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Character/CustomColor/ColorPickerButton" to="MainEditor/Sets_Dict/DictionaryPanel" method="_on_ColorPickerButton_color_changed"]
+[connection signal="mouse_entered" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict/Button" to="." method="set_tooltiphint" binds= [ "Godot Text File ( *.tres *.res ) containing a dictionary" ]]
+[connection signal="mouse_exited" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict/Button" to="." method="set_tooltiphint"]
+[connection signal="pressed" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict/Button" to="." method="_on_BrowseDict_pressed"]
+[connection signal="mouse_entered" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Portrait/Button" to="." method="set_tooltiphint" binds= [ "An image with the grid of characters' portraits" ]]
+[connection signal="mouse_exited" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Portrait/Button" to="." method="set_tooltiphint"]
+[connection signal="pressed" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Portrait/Button" to="." method="_on_BrowsePortrait_pressed"]
+[connection signal="pressed" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Color/Use" to="." method="_on_UseCustomColor_pressed"]
+[connection signal="pressed" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Color/Button" to="." method="_on_CustomColor_Button_pressed"]
+[connection signal="pressed" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Speed/Use" to="." method="_on_UseCustomSpeed_pressed"]
+[connection signal="pressed" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Speed/Button" to="." method="_on_CustomSpeed_Button_pressed"]
+[connection signal="mouse_entered" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/Templates/Load/Button" to="." method="set_tooltiphint" binds= [ "Start the set editor" ]]
+[connection signal="mouse_exited" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/Templates/Load/Button" to="." method="set_tooltiphint"]
+[connection signal="pressed" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/Templates/Load/Button" to="." method="start_editor"]
 [connection signal="file_selected" from="BrowseDict" to="." method="_on_BrowseDict_file_selected"]
 [connection signal="popup_hide" from="BrowseDict" to="." method="_dimmed_popup_hide"]
 [connection signal="file_selected" from="BrowseImg" to="." method="_on_BrowseImg_file_selected"]

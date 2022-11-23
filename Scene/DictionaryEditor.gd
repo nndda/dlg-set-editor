@@ -1,5 +1,7 @@
 extends TabContainer
 
+#	Dictionary Editor
+
 onready var dict_config_panel = $"Dictionary/Panel/Config"
 onready var dict_cfg_use_portraits = dict_config_panel.get_node("use_portraits")
 onready var dict_cfg_use_col = dict_config_panel.get_node("use_custom_color")
@@ -51,8 +53,10 @@ func _on_View_item_selected(index):
 	get_node("Dictionary/Panel/Content/Control/ShowCfg").visible = !glbl.main_app.dict_tree.visible
 	get_node("Dictionary/Panel/Content/Control/ShowBlank").visible = !glbl.main_app.dict_tree.visible
 
+
 func _on_use_portraits_pressed():
 	glbl.dict_cfg.use_portraits = dict_cfg_use_portraits.pressed
+	dict_config_panel.get_node("PortraitConfig").visible = glbl.dict_cfg.use_portraits
 func _on_use_custom_color_pressed():
 	glbl.dict_cfg.use_custom_color = dict_cfg_use_col.pressed
 func _on_use_custom_speed_pressed():
@@ -66,3 +70,13 @@ func _crop_portrait_Value_changed():
 	glbl.dict_cfg.portrait_size_px[1] = dict_config_panel.get_node("PortraitConfig/Height/Value").value
 
 
+#	Character-specific configurations
+
+
+func _on_ColorPickerButton_color_changed(color):
+	glbl.dict_chr[ 
+		actor_name_option.get_item_text( actor_name_option.selected ) ].color = [
+			color.r8,
+			color.g8,
+			color.b8
+			]

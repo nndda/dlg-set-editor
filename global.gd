@@ -2,6 +2,16 @@ extends Node
 
 #	idk if im using the right words for naming the variables and stuff
 
+
+
+func bool2var( boolean, return_true, return_false ):
+	if boolean:
+		return return_true
+	else:
+		return return_false
+
+
+
 #	Configurations for the apps
 var settings_filename = "preferences.cfg"
 var default_settings = {

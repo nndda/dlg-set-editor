@@ -119,7 +119,6 @@ custom_constants/separation = 36
 custom_styles/separator = SubResource( 4 )
 
 [node name="StepLabel" type="Label" parent="VBoxContainer/HBoxContainer/PanelContainer/RearrangeCtrl"]
-modulate = Color( 0.380392, 0.92549, 0.941176, 1 )
 margin_top = 87.0
 margin_right = 26.0
 margin_bottom = 105.0
@@ -407,6 +406,7 @@ custom_styles/separator = SubResource( 10 )
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/PanelContainer/RearrangeCtrl/MoveDown" to="." method="move_down_set"]
 [connection signal="item_selected" from="VBoxContainer/HBoxContainer/VBoxContainer/Editor/Actor/Name" to="." method="_on_Name_item_selected"]
 [connection signal="item_selected" from="VBoxContainer/HBoxContainer/VBoxContainer/Editor/Actor/Expression" to="." method="_on_Expression_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/HBoxContainer/VBoxContainer/Editor/LinesEditor/ActorNoPortrait/Name" to="." method="_on_Name_item_selected"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/Editor/SubOptions/Delete" to="." method="_on_Delete_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/Editor/SubOptions/Duplicate" to="." method="_on_Duplicate_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/Editor/SubOptions/AddBelow" to="." method="_on_AddBelow_pressed"]

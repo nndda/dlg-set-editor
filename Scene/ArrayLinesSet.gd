@@ -12,8 +12,11 @@ onready var target_set						= parent_editor.local_set
 onready var step_label						= self.get_node("VBoxContainer/HBoxContainer/PanelContainer/RearrangeCtrl/StepLabel")
 
 onready var actor_portrait					= self.get_node("VBoxContainer/HBoxContainer/VBoxContainer/Editor/Actor/Portrait/TextureRect")
+
+onready var actor_name_option_in_use
 onready var actor_name_option				= self.get_node("VBoxContainer/HBoxContainer/VBoxContainer/Editor/Actor/Name")
-onready var actor_name_option_nop			= self.get_node("VBoxContainer/HBoxContainer/VBoxContainer/Editor/Actor/Name")
+onready var actor_name_option_nop			= self.get_node("VBoxContainer/HBoxContainer/VBoxContainer/Editor/LinesEditor/ActorNoPortrait/Name")
+
 onready var actor_expression_option			= self.get_node("VBoxContainer/HBoxContainer/VBoxContainer/Editor/Actor/Expression")
 
 onready var speed_value_input				= self.get_node("VBoxContainer/HBoxContainer/VBoxContainer/Editor/SubOptions/Speed/SpinBox")
@@ -21,7 +24,7 @@ onready var speed_value_input				= self.get_node("VBoxContainer/HBoxContainer/VB
 onready var lines							= self.get_node("VBoxContainer/HBoxContainer/VBoxContainer/Editor/LinesEditor/Lines")
 
 onready var using_quote_option				= self.get_node("VBoxContainer/HBoxContainer/VBoxContainer/Editor/SubOptions/UseQuote")
-onready var using_color_option				= self.get_node("VBoxContainer/HBoxContainer/VBoxContainer/Editor/SubOptions/Color")
+#onready var using_color_option				= self.get_node("VBoxContainer/HBoxContainer/VBoxContainer/Editor/SubOptions/Color")
 onready var using_speed_option				= self.get_node("VBoxContainer/HBoxContainer/VBoxContainer/Editor/SubOptions/Speed")
 
 
@@ -45,15 +48,6 @@ onready var cstylebox = StyleBoxFlat.new()
 
 
 
-
-
-func portrait_fit_scale():
-#	actor_portrait.scale.x = 128 / actor_portrait.texture.get_width()
-#	actor_portrait.scale.y = actor_portrait.scale.x
-	pass
-
-
-
 func get_local_line():
 	return [
 		target_set[ self.get_position_in_parent() * glbl.line_length ],
@@ -66,14 +60,25 @@ func get_local_line():
 
 
 func _ready():
+
+	var atlas_tex = AtlasTexture.new()
+	actor_portrait.texture = atlas_tex
+
+	if glbl.dict_cfg.use_portraits:
+		actor_name_option_in_use = actor_name_option
+	else:
+		actor_name_option_in_use = actor_name_option_nop
+
+	actor_name_option.get_parent().visible = glbl.dict_cfg.use_portraits
+	actor_name_option.get_parent().get_parent().get_node("HS2").visible = glbl.dict_cfg.use_portraits
+	actor_name_option_nop.visible = !glbl.dict_cfg.use_portraits
+
+
 	cstylebox.set_corner_radius_individual( 10, 0, 0, 10 )
 	cstylebox.set_expand_margin_individual( 3, 10, 3, 10 )
 	cstylebox.set_bg_color( ccolor )
 
 	$"VBoxContainer/HBoxContainer/PanelContainer".add_stylebox_override( "panel", cstylebox)
-
-	var atlas_tex = AtlasTexture.new()
-	actor_portrait.texture = atlas_tex
 
 	self.refresh_data()
 
@@ -82,7 +87,7 @@ func _ready():
 func set_lines_var():
 		target_set[
 				self.get_position_in_parent() * glbl.line_length
-				] = actor_name_option.get_item_text( actor_name_option.selected )
+				] = actor_name_option_in_use.get_item_text( actor_name_option_in_use.selected )
 		target_set[
 				self.get_position_in_parent() * glbl.line_length + 1
 				] = actor_expression_option.get_item_text( actor_expression_option.selected )
@@ -99,7 +104,20 @@ func set_lines_var():
 func _process(_delta):
 
 	if self.visible and glbl.dict_chr != null:
-#	if self.visible and glbl.current_dict != null:
+
+
+
+		if glbl.dict_cfg.use_portraits:
+			actor_name_option_in_use = actor_name_option
+		else:
+			actor_name_option_in_use = actor_name_option_nop
+
+		actor_name_option.get_parent().visible = glbl.dict_cfg.use_portraits
+		actor_name_option.get_parent().get_parent().get_node("HS2").visible = glbl.dict_cfg.use_portraits
+		actor_name_option_nop.visible = !glbl.dict_cfg.use_portraits
+
+
+
 		step_label.text = str( self.get_position_in_parent() )
 
 		if !loading:
@@ -109,6 +127,7 @@ func _process(_delta):
 
 		else:
 			if self.data_set:
+
 				actor_name_option.select(
 					actor_name_option.get_item_index(
 						self.names_id[ target_set[ self.get_position_in_parent() * glbl.line_length ] ]
@@ -119,11 +138,25 @@ func _process(_delta):
 						self.names_id[
 							target_set[ self.get_position_in_parent() * glbl.line_length ]
 							] ) ) )
+
+				actor_name_option_nop.select(
+					actor_name_option_nop.get_item_index(
+						self.names_id[ target_set[ self.get_position_in_parent() * glbl.line_length ] ]
+						)
+					)
+				self._on_Name_item_selected( actor_name_option_nop.get_item_index( 
+					actor_name_option_nop.get_item_index(
+						self.names_id[
+							target_set[ self.get_position_in_parent() * glbl.line_length ]
+							] ) ) )
+
+
 				actor_expression_option.select(
 					actor_expression_option.get_item_index(
 						self.expressions_id[
 							target_set[ self.get_position_in_parent() * glbl.line_length + 1 ]
 							] ) )
+
 				lines.text					= target_set[ self.get_position_in_parent() * glbl.line_length + 2 ]
 				using_quote_option.pressed	= target_set[ self.get_position_in_parent() * glbl.line_length + 3 ]
 				speed_value_input.value		= target_set[ self.get_position_in_parent() * glbl.line_length + 4 ]
@@ -138,12 +171,12 @@ func _process(_delta):
 
 
 
-		actor_name_option.get_parent().visible = glbl.dict_cfg.use_portraits
-		actor_name_option.get_parent().get_parent().get_node("HS2").visible = glbl.dict_cfg.use_portraits
-		$VBoxContainer/HBoxContainer/VBoxContainer/Editor/LinesEditor/ActorNoPortrait.visible = !actor_name_option.get_parent().visible
+#		actor_name_option.get_parent().visible = glbl.dict_cfg.use_portraits
+#		actor_name_option.get_parent().get_parent().get_node("HS2").visible = glbl.dict_cfg.use_portraits
+#		actor_name_option_nop.visible = !actor_name_option.get_parent().visible
 
-		using_color_option.disabled = glbl.dict_cfg.use_custom_color
-		using_color_option.visible = glbl.dict_cfg.use_custom_color
+#		using_color_option.disabled = glbl.dict_cfg.use_custom_color
+#		using_color_option.visible = glbl.dict_cfg.use_custom_color
 
 		using_speed_option.disabled = glbl.dict_cfg.use_custom_speed
 		using_speed_option.visible = glbl.dict_cfg.use_custom_speed
@@ -151,91 +184,82 @@ func _process(_delta):
 
 
 		if glbl.dict_cfg.use_custom_color:
+#			print(glbl.dict_chr[ target_set[ self.get_position_in_parent() * glbl.line_length ] ])
 			ccolor = Color8(
-			glbl.dict_chr[ target_set[
-				self.get_position_in_parent() * glbl.line_length
-				] ].color[0],
-			glbl.dict_chr[ target_set[
-				self.get_position_in_parent() * glbl.line_length
-				] ].color[1],
-			glbl.dict_chr[ target_set[
-				self.get_position_in_parent() * glbl.line_length
-				] ].color[2]
+			glbl.dict_chr[ target_set[ self.get_position_in_parent() * glbl.line_length ] ].color[0],
+			glbl.dict_chr[ target_set[ self.get_position_in_parent() * glbl.line_length ] ].color[1],
+			glbl.dict_chr[ target_set[ self.get_position_in_parent() * glbl.line_length ] ].color[2]
 			)
+			move_up.get_parent().get_node("StepLabel").modulate = ccolor.inverted()
 		else:
 			ccolor = Color8( 0, 0, 0, 40 )
+			move_up.get_parent().get_node("StepLabel").modulate = Color(1,1,1)
 		cstylebox.set_bg_color( ccolor )
 
 
 
-		
-
-
-#		actor_expression_option.visible = glbl.current_set_use_expr
-#		actor_portrait.visible = glbl.current_set_use_expr
-#		actor_expression_option.visible = glbl.current_set_use_expr
-#		actor_portrait.visible = glbl.current_set_use_expr
-
-
-
-#func set_color( character ):
-#	if glbl.dict_chr[ character ].color is Array:
-#		var color_var = Color8(
-#			glbl.dict_chr[ character ].color[0],
-#			glbl.dict_chr[ character ].color[1],
-#			glbl.dict_chr[ character ].color[2]
-#			)
-#		$VBoxContainer/HBoxContainer/PanelContainer.bg_color
-
-
 func refresh_data():
-	actor_portrait.texture.set_atlas( glbl.current_portrait )
-	portrait_fit_scale()
+
 	if !glbl.dict_chr.empty():
+
+		if glbl.dict_cfg.use_portraits:
+			actor_portrait.texture.set_atlas( glbl.current_portrait )
+#			portrait_fit_scale()
+
 		actor_name_option.clear()
 		for actor_name in ( glbl.dict_chr.keys().size() ):
+
 			actor_name_option.add_item(
-				str(
-					glbl.dict_chr.keys()[ actor_name ]
-					),
-				actor_name
-				)
+				str( glbl.dict_chr.keys()[ actor_name ] ), actor_name )
+			actor_name_option_nop.add_item(
+				str( glbl.dict_chr.keys()[ actor_name ] ), actor_name )
 
 			self.names_id[ str(
 					glbl.dict_chr.keys()[ actor_name ]
 					) ] = actor_name
 
 		self._on_Name_item_selected( actor_name_option.get_item_index( 0 ) )
+		self._on_Name_item_selected( actor_name_option_nop.get_item_index( 0 ) )
+
+#		actor_name_option_nop.clear()
+#		for actor_name in ( glbl.dict_chr.keys().size() ):
+#			actor_name_option_nop.add_item(
+#				str( glbl.dict_chr.keys()[ actor_name ] ), actor_name )
+#			self.names_id[ str(
+#					glbl.dict_chr.keys()[ actor_name ]
+#					) ] = actor_name
+#		self._on_Name_item_selected( actor_name_option_nop.get_item_index( 0 ) )
+
 		self.data_set = true
 #	print( glbl.portrait_crop( 0, 0 ) )
 
 
 
 func _on_Name_item_selected(index):
-	if glbl.dict_chr != null:
-		if !glbl.dict_chr.empty():
+#	if glbl.dict_chr != null:
+#		if !glbl.dict_chr.empty():
 
-			if glbl.dict_cfg.use_portraits:
+	if glbl.dict_cfg.use_portraits:
 
-				self.expressions_id.clear()
-				actor_expression_option.clear()
+		self.expressions_id.clear()
+		actor_expression_option.clear()
 
-				for expression in (
-					glbl.dict_chr[ actor_name_option.get_item_text( index ) ][
-						"expressions"
-						].keys().size()
-					):
+		for expression in (
+			glbl.dict_chr[ actor_name_option.get_item_text( index ) ][
+				"expressions"
+				].keys().size()
+			):
 
-						actor_expression_option.add_item(
-							glbl.dict_chr[
-								actor_name_option.get_item_text( index )
-								]["expressions"].keys()[ expression ],
-								expression
-							)
+				actor_expression_option.add_item(
+					glbl.dict_chr[
+						actor_name_option.get_item_text( index )
+						]["expressions"].keys()[ expression ],
+						expression
+					)
 
-						self.expressions_id[str(glbl.dict_chr[
-								actor_name_option.get_item_text( index )
-								]["expressions"].keys()[ expression ])] = expression
+				self.expressions_id[str(glbl.dict_chr[
+						actor_name_option.get_item_text( index )
+						]["expressions"].keys()[ expression ])] = expression
 
 	#			emit_signal("_on_Expression_item_selected")
 	#			set_portrait_img()

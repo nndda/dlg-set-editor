@@ -85,21 +85,58 @@ func _ready():
 
 
 func set_lines_var():
-		target_set[
-				self.get_position_in_parent() * glbl.line_length
-				] = actor_name_option_in_use.get_item_text( actor_name_option_in_use.selected )
-		target_set[
-				self.get_position_in_parent() * glbl.line_length + 1
-				] = actor_expression_option.get_item_text( actor_expression_option.selected )
-		target_set[
-				self.get_position_in_parent() * glbl.line_length + 2
-				] = lines.text
-		target_set[
-				self.get_position_in_parent() * glbl.line_length + 3
-				] = using_quote_option.pressed
-		target_set[
-				self.get_position_in_parent() * glbl.line_length + 4
-				] = float( speed_value_input.value )
+
+	# Old array format
+	# Character's name
+#	target_set[
+#			self.get_position_in_parent() * glbl.line_length
+#			] = actor_name_option_in_use.get_item_text( actor_name_option_in_use.selected )
+#
+#	# Character's expression/portrait
+#	target_set[
+#			self.get_position_in_parent() * glbl.line_length + 1
+#			] = actor_expression_option.get_item_text( actor_expression_option.selected )
+#
+#	# Dialogue line
+#	target_set[
+#			self.get_position_in_parent() * glbl.line_length + 2
+#			] = lines.text
+#
+#	# Use of quotation mark
+#	target_set[
+#			self.get_position_in_parent() * glbl.line_length + 3
+#			] = using_quote_option.pressed
+#
+#	# Typing speed
+#	target_set[
+#			self.get_position_in_parent() * glbl.line_length + 4
+#			] = float( speed_value_input.value )
+
+
+	# 2D array
+	# Character's name
+	target_set[
+		self.get_position_in_parent() ][ 0 ] = actor_name_option_in_use.get_item_text(
+			actor_name_option_in_use.selected )
+
+	# Character's expression/portrait
+	target_set[
+		self.get_position_in_parent() ][ 1 ] = actor_expression_option.get_item_text(
+			actor_expression_option.selected )
+
+	# Dialogue line
+	target_set[
+		self.get_position_in_parent() ][ 2 ] = lines.text
+
+	# Use of quotation mark
+	target_set[
+		self.get_position_in_parent() ][ 3 ] = using_quote_option.pressed
+
+	# Typing speed
+	target_set[
+		self.get_position_in_parent() ][ 4 ] = float( speed_value_input.value )
+
+
 
 func _process(_delta):
 
@@ -121,45 +158,46 @@ func _process(_delta):
 		step_label.text = str( self.get_position_in_parent() )
 
 		if !loading:
-#			if glbl.current_set_use_expr:
 			set_lines_var()
 			set_portrait_img()
 
 		else:
 			if self.data_set:
 
+
 				actor_name_option.select(
 					actor_name_option.get_item_index(
-						self.names_id[ target_set[ self.get_position_in_parent() * glbl.line_length ] ]
+						self.names_id[ target_set[ self.get_position_in_parent() ][ 0 ] ]
 						)
 					)
 				self._on_Name_item_selected( actor_name_option.get_item_index( 
 					actor_name_option.get_item_index(
 						self.names_id[
-							target_set[ self.get_position_in_parent() * glbl.line_length ]
+							target_set[ self.get_position_in_parent() ][ 0 ]
 							] ) ) )
+
 
 				actor_name_option_nop.select(
 					actor_name_option_nop.get_item_index(
-						self.names_id[ target_set[ self.get_position_in_parent() * glbl.line_length ] ]
+						self.names_id[ target_set[ self.get_position_in_parent() ][ 0 ] ]
 						)
 					)
 				self._on_Name_item_selected( actor_name_option_nop.get_item_index( 
 					actor_name_option_nop.get_item_index(
 						self.names_id[
-							target_set[ self.get_position_in_parent() * glbl.line_length ]
+							target_set[ self.get_position_in_parent() ][ 0 ]
 							] ) ) )
 
 
 				actor_expression_option.select(
 					actor_expression_option.get_item_index(
 						self.expressions_id[
-							target_set[ self.get_position_in_parent() * glbl.line_length + 1 ]
+							target_set[ self.get_position_in_parent() ][ 1 ]
 							] ) )
 
-				lines.text					= target_set[ self.get_position_in_parent() * glbl.line_length + 2 ]
-				using_quote_option.pressed	= target_set[ self.get_position_in_parent() * glbl.line_length + 3 ]
-				speed_value_input.value		= target_set[ self.get_position_in_parent() * glbl.line_length + 4 ]
+				lines.text					= target_set[ self.get_position_in_parent() ][ 2 ]
+				using_quote_option.pressed	= target_set[ self.get_position_in_parent() ][ 3 ]
+				speed_value_input.value		= target_set[ self.get_position_in_parent() ][ 4 ]
 
 				loading = false
 
@@ -171,29 +209,23 @@ func _process(_delta):
 
 
 
-#		actor_name_option.get_parent().visible = glbl.dict_cfg.use_portraits
-#		actor_name_option.get_parent().get_parent().get_node("HS2").visible = glbl.dict_cfg.use_portraits
-#		actor_name_option_nop.visible = !actor_name_option.get_parent().visible
-
-#		using_color_option.disabled = glbl.dict_cfg.use_custom_color
-#		using_color_option.visible = glbl.dict_cfg.use_custom_color
-
 		using_speed_option.disabled = glbl.dict_cfg.use_custom_speed
 		using_speed_option.visible = glbl.dict_cfg.use_custom_speed
 
 
 
 		if glbl.dict_cfg.use_custom_color:
-#			print(glbl.dict_chr[ target_set[ self.get_position_in_parent() * glbl.line_length ] ])
 			ccolor = Color8(
-			glbl.dict_chr[ target_set[ self.get_position_in_parent() * glbl.line_length ] ].color[0],
-			glbl.dict_chr[ target_set[ self.get_position_in_parent() * glbl.line_length ] ].color[1],
-			glbl.dict_chr[ target_set[ self.get_position_in_parent() * glbl.line_length ] ].color[2]
+				glbl.dict_chr[ target_set[ self.get_position_in_parent() ][0] ].color[0],
+				glbl.dict_chr[ target_set[ self.get_position_in_parent() ][0] ].color[1],
+				glbl.dict_chr[ target_set[ self.get_position_in_parent() ][0] ].color[2]
 			)
 			move_up.get_parent().get_node("StepLabel").modulate = ccolor.inverted()
+
 		else:
 			ccolor = Color8( 0, 0, 0, 40 )
 			move_up.get_parent().get_node("StepLabel").modulate = Color(1,1,1)
+
 		cstylebox.set_bg_color( ccolor )
 
 
@@ -221,17 +253,7 @@ func refresh_data():
 		self._on_Name_item_selected( actor_name_option.get_item_index( 0 ) )
 		self._on_Name_item_selected( actor_name_option_nop.get_item_index( 0 ) )
 
-#		actor_name_option_nop.clear()
-#		for actor_name in ( glbl.dict_chr.keys().size() ):
-#			actor_name_option_nop.add_item(
-#				str( glbl.dict_chr.keys()[ actor_name ] ), actor_name )
-#			self.names_id[ str(
-#					glbl.dict_chr.keys()[ actor_name ]
-#					) ] = actor_name
-#		self._on_Name_item_selected( actor_name_option_nop.get_item_index( 0 ) )
-
 		self.data_set = true
-#	print( glbl.portrait_crop( 0, 0 ) )
 
 
 
@@ -261,44 +283,52 @@ func _on_Name_item_selected(index):
 						actor_name_option.get_item_text( index )
 						]["expressions"].keys()[ expression ])] = expression
 
-	#			emit_signal("_on_Expression_item_selected")
-	#			set_portrait_img()
-
 
 func move_up_set():
 	get_parent().move_child(
 		get_parent().get_child( self.get_position_in_parent() ), 
-		self.get_position_in_parent() - 1
-	)
+		self.get_position_in_parent() - 1 )
 func move_down_set():
 	get_parent().move_child(
 		get_parent().get_child( self.get_position_in_parent() ), 
-		self.get_position_in_parent() + 1
-	)
+		self.get_position_in_parent() + 1 )
+
 
 func _on_self_visibility_changed():
 	self.refresh_data()
 
 func _on_Delete_pressed():
-	for _remv in range( glbl.line_length ):
-		target_set.remove( self.get_position_in_parent() * glbl.line_length )
+#	for _remv in range( glbl.line_length ):
+#		target_set.remove( self.get_position_in_parent() * glbl.line_length )
+	target_set.remove( self.get_position_in_parent() )
 	self.queue_free()
 
 func _on_Duplicate_pressed():
-	if target_set.size() < self.get_position_in_parent() * glbl.line_length:
-		glbl.current_set.append_array( parent_editor.default_lines )
+
+	# Old array format
+#	if target_set.size() < self.get_position_in_parent() * glbl.line_length:
+#		glbl.current_set.append_array( parent_editor.default_lines )
+#
+#	else:
+#		glbl.current_set.insert( ( self.get_position_in_parent() * ( glbl.line_length + 0 ) ) ,
+#			parent_editor.default_lines[0] )
+#		glbl.current_set.insert( ( self.get_position_in_parent() * ( glbl.line_length + 0 ) ) + 0 ,
+#			parent_editor.default_lines[1] )
+#		glbl.current_set.insert( ( self.get_position_in_parent() * ( glbl.line_length + 0 ) ) + 0 ,
+#			parent_editor.default_lines[2] )
+#		glbl.current_set.insert( ( self.get_position_in_parent() * ( glbl.line_length + 0 ) ) + 0 ,
+#			parent_editor.default_lines[3] )
+#		glbl.current_set.insert( ( self.get_position_in_parent() * ( glbl.line_length + 0 ) ) + 0 ,
+#			parent_editor.default_lines[4] )
+
+	# 2D array
+	if target_set.size() < self.get_position_in_parent():
+		glbl.current_set.append( parent_editor.default_lines )
 
 	else:
-		glbl.current_set.insert( ( self.get_position_in_parent() * ( glbl.line_length + 0 ) ) ,
-			parent_editor.default_lines[0] )
-		glbl.current_set.insert( ( self.get_position_in_parent() * ( glbl.line_length + 0 ) ) + 0 ,
-			parent_editor.default_lines[1] )
-		glbl.current_set.insert( ( self.get_position_in_parent() * ( glbl.line_length + 0 ) ) + 0 ,
-			parent_editor.default_lines[2] )
-		glbl.current_set.insert( ( self.get_position_in_parent() * ( glbl.line_length + 0 ) ) + 0 ,
-			parent_editor.default_lines[3] )
-		glbl.current_set.insert( ( self.get_position_in_parent() * ( glbl.line_length + 0 ) ) + 0 ,
-			parent_editor.default_lines[4] )
+		glbl.current_set.insert( self.get_position_in_parent(),
+			parent_editor.default_lines )
+
 
 	parent_editor.get_node(
 		"Editor/ScrollContainer/ArrayData"
@@ -311,7 +341,6 @@ func _on_AddBelow_pressed():
 
 
 func _on_Expression_item_selected(_index):
-	# Setting portrait
 	self.set_portrait_img()
 func set_portrait_img():
 

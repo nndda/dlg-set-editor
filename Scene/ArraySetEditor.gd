@@ -29,25 +29,43 @@ func load_set():
 		chd_c.queue_free()
 
 	if !local_set.empty():
-		if local_set.size() >= glbl.line_length:
-			for step_count in local_set.size() / glbl.line_length:
+
+		# Old array format
+#		if local_set.size() >= glbl.line_length:
+#			for step_count in local_set.size() / glbl.line_length:
+#				get_node("Editor/ScrollContainer/ArrayData").add_child( load("res://Scene/ArrayLinesSet.tscn").instance() )
+
+		# 2D array
+		if local_set.size() >= 1:
+			for step_count in local_set.size():
 				get_node("Editor/ScrollContainer/ArrayData").add_child( load("res://Scene/ArrayLinesSet.tscn").instance() )
-	else:
-		pass
 
 
 func _ready():
 	if local_set.empty():
-		pass
-	else:
-		if local_set.size() >= glbl.line_length:
-			for step_count in local_set.size() / glbl.line_length:
+
+		# Old array format
+#		if local_set.size() >= glbl.line_length:
+#			for step_count in local_set.size() / glbl.line_length:
+#				get_node("Editor/ScrollContainer/ArrayData").add_child( load("res://Scene/ArrayLinesSet.tscn").instance() )
+
+		# 2D array
+		if local_set.size() >= 1:
+			for step_count in local_set.size():
 				get_node("Editor/ScrollContainer/ArrayData").add_child( load("res://Scene/ArrayLinesSet.tscn").instance() )
+
+
 
 func _process(_delta):
 	for btns in get_node("Editor/VBoxContainer/Set").get_children():
 		if btns is Button:
-			btns.disabled = !( glbl.current_set.size() >= glbl.line_length )
+
+			# Old array format
+#			btns.disabled = !( glbl.current_set.size() >= glbl.line_length )
+
+			# 2D array
+			btns.disabled = !( glbl.current_set.size() >= 1 )
+
 	$"Editor/Hints".visible = $"Editor/ScrollContainer/ArrayData".get_children().empty()
 
 

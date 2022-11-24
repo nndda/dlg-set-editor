@@ -5,6 +5,23 @@ export(NodePath) var sets_container
 #var logged_target : PoolStringArray
 var logged_result : PoolStringArray
 
+func replace_property(
+	target_set : Array,
+	index_n : int,
+	prev_property,
+	property
+	):
+
+
+	var prev_prop_set
+	var prev_prop = property
+
+
+	if target_set.size() >= 1:
+		for dlg_line in target_set.size():
+			target_set[ dlg_line ][ index_n ] = property
+
+
 func _look_for( 
 	index_n : int,
 	property : String

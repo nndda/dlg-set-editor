@@ -18,6 +18,9 @@ onready var load_btn = $"StartScreen/CenterContainer/VBoxContainer/TabContainer/
 onready var tooltip_label = $"StartScreen/CenterContainer/VBoxContainer/HintTooltip/LabelText"
 
 func _ready():
+	for uwuwuw in 9:
+		print("sefesf = " + str( uwuwuw ))
+	
 	glbl.main_app = self
 	glbl.current_dict = null
 	dict_stat_hint.text = "No global dictionary selected"
@@ -63,7 +66,6 @@ func _process(_delta):
 							input_btn.disabled = glbl.current_dict == null
 
 
-	#	img_browse_btn.get_node("../OK").visible = glbl.dict_chr._CONFIG.use_portraits
 		img_browse_btn.get_node("../OK").visible = glbl.current_portrait != null
 		if glbl.current_portrait != null:
 			img_browse_btn.text = " Remove portraits"
@@ -71,7 +73,6 @@ func _process(_delta):
 		else:
 			img_browse_btn.text = " Select portraits"
 			img_browse_btn.set_pressed(false)
-
 
 		glbl.dict_cfg.use_custom_color = config_files.get_node("Color/Use").pressed
 		glbl.dict_cfg.use_custom_speed = config_files.get_node("Speed/Use").pressed
@@ -307,11 +308,6 @@ func verify_dict( target ):
 			glbl.panel_dictionary.dict_cfg_use_col.pressed = glbl.current_dict._CONFIG.use_custom_color
 			glbl.panel_dictionary.dict_cfg_use_spd.pressed = glbl.current_dict._CONFIG.use_custom_speed
 
-			glbl.panel_dictionary.dict_config_panel.get_node("PortraitConfig/Column/Value").value		= glbl.current_dict._CONFIG.portrait_size_grid[0]
-			glbl.panel_dictionary.dict_config_panel.get_node("PortraitConfig/Row/Value").value			= glbl.current_dict._CONFIG.portrait_size_grid[1]
-			glbl.panel_dictionary.dict_config_panel.get_node("PortraitConfig/Width/Value").value		= glbl.current_dict._CONFIG.portrait_size_px[0] 
-			glbl.panel_dictionary.dict_config_panel.get_node("PortraitConfig/Height/Value").value		= glbl.current_dict._CONFIG.portrait_size_px[1]
-
 			glbl.portrait_grid_size = Vector2(
 				glbl.current_dict._CONFIG.portrait_size_grid[0],
 				glbl.current_dict._CONFIG.portrait_size_grid[1]
@@ -324,6 +320,11 @@ func verify_dict( target ):
 			dict_filepath = glbl.dict_filepath
 			dict_filename = glbl.dict_filename
 			glbl.set_dict_properties()
+
+			glbl.panel_dictionary.dict_config_panel.get_node("PortraitConfig/Column/Value").value		= glbl.current_dict._CONFIG.portrait_size_grid[0]
+			glbl.panel_dictionary.dict_config_panel.get_node("PortraitConfig/Row/Value").value			= glbl.current_dict._CONFIG.portrait_size_grid[1]
+			glbl.panel_dictionary.dict_config_panel.get_node("PortraitConfig/Width/Value").value		= glbl.current_dict._CONFIG.portrait_size_px[0] 
+			glbl.panel_dictionary.dict_config_panel.get_node("PortraitConfig/Height/Value").value		= glbl.current_dict._CONFIG.portrait_size_px[1]
 
 			_build_dict_tree()
 

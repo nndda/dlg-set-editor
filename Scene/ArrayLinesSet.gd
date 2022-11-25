@@ -298,6 +298,7 @@ func _on_self_visibility_changed():
 	self.refresh_data()
 
 func _on_Delete_pressed():
+	# Old array
 #	for _remv in range( glbl.line_length ):
 #		target_set.remove( self.get_position_in_parent() * glbl.line_length )
 	target_set.remove( self.get_position_in_parent() )

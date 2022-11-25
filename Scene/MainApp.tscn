@@ -355,11 +355,10 @@ size_flags_vertical = 3
 tab_align = 0
 
 [node name="Content" type="VBoxContainer" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 3.0
-margin_top = 28.0
+margin_top = 31.0
 margin_right = -3.0
 margin_bottom = -3.0
 
@@ -600,6 +599,7 @@ expand_icon = true
 script = ExtResource( 16 )
 
 [node name="Character" type="ScrollContainer" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 3.0

@@ -18,9 +18,7 @@ onready var load_btn = $"StartScreen/CenterContainer/VBoxContainer/TabContainer/
 onready var tooltip_label = $"StartScreen/CenterContainer/VBoxContainer/HintTooltip/LabelText"
 
 func _ready():
-	for uwuwuw in 9:
-		print("sefesf = " + str( uwuwuw ))
-	
+
 	glbl.main_app = self
 	glbl.current_dict = null
 	dict_stat_hint.text = "No global dictionary selected"
@@ -93,28 +91,33 @@ func _build_dict_tree(
 	show_blank = false
 	):
 
-#	var icon_size = 16
-
 	dict_raw.text = var2str( glbl.current_dict )
 
 	dict_tree.clear()
 	dict_tree.set_column_title(0,"Dictionary")
 	dict_tree.set_columns(2)
+
 	var root = dict_tree.create_item()
+
 	dict_tree.set_hide_root(true)
 
 	if show_config:
+
 		var config_sub = dict_tree.create_item(root)
 		config_sub.set_text(0, "Config")
+
 		for config_itm in glbl.dict_cfg.keys():
+
 			var cfg_name = dict_tree.create_item(config_sub)
 			cfg_name.set_text( 0, str(config_itm) )
-#			var cfg_itm = dict_tree.create_item(config_sub)
 			cfg_name.set_text( 1, str(glbl.dict_cfg[config_itm]) )
+
 
 	var actor_sub = dict_tree.create_item(root)
 	actor_sub.set_text(0, "Characters")
+
 	for actor in glbl.dict_chr.keys():
+
 		Tree_AddChrs( actor_sub, actor, show_blank )
 
 
@@ -389,7 +392,6 @@ func _on_BrowseImg_file_selected(path):
 
 func start_editor():
 	OS.set_window_maximized(true)
-#	$StartScreen.visible = false
 	$MainEditor.show()
 
 

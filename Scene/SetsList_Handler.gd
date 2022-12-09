@@ -88,7 +88,8 @@ func verify_set( target, file_path ):
 		print("========= Adding Set")
 		add_set(
 			file_path,
-			Array( str2var( target.get_as_text() ) ) )
+#			Array( str2var( target.get_as_text() ) ) )
+			Array( target_parsed ) )
 
 
 func new_set_file(path):

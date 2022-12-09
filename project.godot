@@ -12,12 +12,14 @@ config_version=4
 
 config/name="nnda's Dialogue Set Editor"
 run/main_scene="res://Scene/MainApp.tscn"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="dlg-set-editor"
 boot_splash/image="res://logo_large_monochrome_dark.png"
 config/icon="res://icon.png"
 
 [autoload]
 
-glbl="*res://global.gd"
+glbl="*res://global.tscn"
 
 [display]
 

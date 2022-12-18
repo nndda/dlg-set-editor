@@ -78,7 +78,8 @@ func _on_Save_pressed():
 	save_set()
 
 func _on_AddLine_pressed():
-	local_set.append_array( glbl.get_default_lines() )
+#	local_set.append_array( glbl.get_default_lines() )
+	local_set.append( glbl.get_default_lines() )
 	$Editor/ScrollContainer/ArrayData.add_child( load("res://Scene/ArrayLinesSet.tscn").instance() )
 
 func _on_Close_pressed():

@@ -2,6 +2,10 @@ extends Node
 
 #	idk if im using the right words for naming the variables and stuff
 
+enum SET_TYPE{
+	Lines,		# 0
+	Pause,		# 1
+}
 
 
 func bool2var( boolean, return_true, return_false ):
@@ -111,6 +115,24 @@ var dict_filename = ""
 var current_dict = { }
 var dict_chr = { }
 var dict_cfg = {}
+var dict_template = {
+	"_CONFIG"		:	{
+		"portrait_size_grid": [ 1, 1 ],
+		"portrait_size_px": [ 32, 32 ],
+		"use_custom_color": false,
+		"use_custom_speed": false,
+		"use_portraits": false
+	},
+	"characters"	:	{
+		"label": " ",
+		"_BLANK": {
+		"color": [ 0, 0, 0 ],
+		"expressions": {
+			"_empty": [ -1, -1 ]
+			}
+		}
+	}
+}
 func set_dict_properties():
 	glbl.dict_chr = glbl.current_dict.characters
 	glbl.dict_cfg = glbl.current_dict._CONFIG
@@ -119,8 +141,10 @@ func save_dict_properties( save_file = false ):
 	glbl.current_dict._CONFIG = glbl.dict_cfg
 	if !save_file:
 		var DictSave = File.new()
+		print( "Saving dictionary : " + str( glbl.dict_filepath ) )
 		DictSave.open( glbl.dict_filepath, File.WRITE )
 		DictSave.store_string( var2str( glbl.current_dict ) )
+		DictSave.close()
 
 
 var line_length = 5
@@ -138,8 +162,9 @@ func get_res_filename( file_name : String ):
 	return file_name.right( file_name.find_last( "/" ) + 1 )
 
 func get_default_lines():
+	print( "on glbl.get_default_lines()" )
 	return [
-		glbl.dict_chr.keys()[0],
+		glbl.dict_chr.keys()[ 0 ],
 		glbl.dict_chr[ glbl.dict_chr.keys()[0] ]["expressions"].keys()[0],
 		"",
 		true,
@@ -150,5 +175,14 @@ var main_app
 var panel_dictionary
 var panel_sets_list
 var panel_set_editor
+
+
+var set_crawler
+var set_crawler_popup
+
+
 func _ready():
 	glbl.read_settings()
+
+
+

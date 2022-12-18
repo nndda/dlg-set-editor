@@ -298,7 +298,6 @@ mouse_default_cursor_shape = 2
 custom_styles/pressed = ExtResource( 12 )
 toggle_mode = true
 icon = ExtResource( 10 )
-flat = true
 expand_icon = true
 script = ExtResource( 14 )
 
@@ -325,20 +324,21 @@ mouse_default_cursor_shape = 2
 custom_styles/pressed = ExtResource( 12 )
 toggle_mode = true
 icon = ExtResource( 16 )
-flat = true
 expand_icon = true
 script = ExtResource( 14 )
 
-[node name="SpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer/VBoxContainer/Editor/SubOptions/Speed"]
-visible = false
+[node name="ValueContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/Editor/SubOptions/Speed"]
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -144.0
 margin_right = -26.0
-max_value = 5.0
-value = 1.0
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/HBoxContainer/VBoxContainer/Editor/SubOptions/Speed/ValueContainer"]
+margin_right = 118.0
+margin_bottom = 24.0
 align = 1
+placeholder_text = "1.0"
 
 [node name="HS" type="HSeparator" parent="VBoxContainer/HBoxContainer/VBoxContainer/Editor/SubOptions"]
 margin_top = 56.0
@@ -353,7 +353,6 @@ rect_min_size = Vector2( 24, 0 )
 mouse_default_cursor_shape = 2
 toggle_mode = true
 icon = ExtResource( 11 )
-flat = true
 expand_icon = true
 script = ExtResource( 14 )
 
@@ -366,7 +365,6 @@ hint_tooltip = "Duplicate this dialogue line"
 mouse_filter = 1
 mouse_default_cursor_shape = 2
 icon = ExtResource( 15 )
-flat = true
 icon_align = 1
 expand_icon = true
 script = ExtResource( 14 )

@@ -19,7 +19,7 @@ onready var actor_name_option_nop			= self.get_node("VBoxContainer/HBoxContainer
 
 onready var actor_expression_option			= self.get_node("VBoxContainer/HBoxContainer/VBoxContainer/Editor/Actor/Expression")
 
-onready var speed_value_input				= self.get_node("VBoxContainer/HBoxContainer/VBoxContainer/Editor/SubOptions/Speed/SpinBox")
+onready var speed_value_input				= self.get_node("VBoxContainer/HBoxContainer/VBoxContainer/Editor/SubOptions/Speed/ValueContainer/LineEdit")
 
 onready var lines							= self.get_node("VBoxContainer/HBoxContainer/VBoxContainer/Editor/LinesEditor/Lines")
 
@@ -133,8 +133,12 @@ func set_lines_var():
 		self.get_position_in_parent() ][ 3 ] = using_quote_option.pressed
 
 	# Typing speed
-	target_set[
-		self.get_position_in_parent() ][ 4 ] = float( speed_value_input.value )
+	if speed_value_input.text.is_valid_float():
+		target_set[
+			self.get_position_in_parent() ][ 4 ] = float( speed_value_input.text)
+	else:
+		target_set[
+			self.get_position_in_parent() ][ 4 ] = 1.0
 
 
 
@@ -143,11 +147,11 @@ func _process(_delta):
 	if self.visible and glbl.dict_chr != null:
 
 
-
 		if glbl.dict_cfg.use_portraits:
 			actor_name_option_in_use = actor_name_option
 		else:
 			actor_name_option_in_use = actor_name_option_nop
+
 
 		actor_name_option.get_parent().visible = glbl.dict_cfg.use_portraits
 		actor_name_option.get_parent().get_parent().get_node("HS2").visible = glbl.dict_cfg.use_portraits
@@ -157,13 +161,15 @@ func _process(_delta):
 
 		step_label.text = str( self.get_position_in_parent() )
 
+
+
 		if !loading:
 			set_lines_var()
 			set_portrait_img()
 
+
 		else:
 			if self.data_set:
-
 
 				actor_name_option.select(
 					actor_name_option.get_item_index(
@@ -197,7 +203,7 @@ func _process(_delta):
 
 				lines.text					= target_set[ self.get_position_in_parent() ][ 2 ]
 				using_quote_option.pressed	= target_set[ self.get_position_in_parent() ][ 3 ]
-				speed_value_input.value		= target_set[ self.get_position_in_parent() ][ 4 ]
+				speed_value_input.text		= str( target_set[ self.get_position_in_parent() ][ 4 ] )
 
 				loading = false
 
@@ -209,8 +215,9 @@ func _process(_delta):
 
 
 
-		using_speed_option.disabled = glbl.dict_cfg.use_custom_speed
+		using_speed_option.disabled = !glbl.dict_cfg.use_custom_speed
 		using_speed_option.visible = glbl.dict_cfg.use_custom_speed
+		using_speed_option.get_node("ValueContainer").visible = using_speed_option.pressed
 
 
 
@@ -341,6 +348,12 @@ func _on_AddBelow_pressed():
 	pass
 
 
+#func _on_Speed_pressed():
+#	pass # Replace with function body.
+#func _on_Speed_value_changed(value):
+#	pass # Replace with function body.
+
+
 func _on_Expression_item_selected(_index):
 	self.set_portrait_img()
 func set_portrait_img():
@@ -361,4 +374,6 @@ func set_portrait_img():
 
 	else:
 		actor_portrait.texture.set_region( Rect2(0,0,0,0) )
+
+
 

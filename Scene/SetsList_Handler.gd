@@ -97,9 +97,11 @@ func new_set_file(path):
 
 	if filewindow_node.get_mode() == FileDialog.MODE_SAVE_FILE:
 		file_add.open( path, File.WRITE )
-		file_add.store_string( var2str(
+
+		file_add.store_string( var2str([
 			get_parent().get_parent().get_parent().get_node("Sets_Dict/DlgEditorPanel/ArraySetEditor").default_lines
-			) )
+			]) )
+
 		file_add.close()
 
 		file_add.open( path, File.READ )

@@ -11,7 +11,6 @@ func _ready():
 	print(file_path)
 	print(file_name)
 	print(raw_array)
-#	connect( "mouse_exited", self, "on_hover", [false] )
 
 func on_hover(is_true = true):
 	if is_true:

@@ -21,6 +21,9 @@ func _ready():
 
 	glbl.main_app = self
 	glbl.current_dict = null
+
+	glbl.set_crawler_popup = $PopUpContainer/CrawlerSetWarning
+
 	dict_stat_hint.text = "No global dictionary selected"
 	log_start( "Waiting input..." )
 
@@ -344,6 +347,7 @@ func _on_BrowseDict_file_selected(path):
 	print("####### get_as_text()")
 	print( filewww.get_as_text() )
 
+	glbl.dict_filepath = str( path )
 	dict_filename = glbl.get_res_filename( path )
 
 	var output_ = str2var( filewww.get_as_text() )
@@ -358,11 +362,17 @@ func _on_BrowseDict_file_selected(path):
 	else:
 		log_start( log_msg.dict_invalid )
 
+func _on_NewDict_file_selected(_path):
+	pass # Replace with function body.
+
+
+
 
 func verify_img( target ):
 	glbl.current_portrait = target
 	glbl.get_portrait_properties()
 	$TextureRect.texture = glbl.current_portrait
+
 
 var img_filepath = ""
 var img_filename = ""
@@ -397,9 +407,11 @@ func start_editor():
 
 
 func _on_CustomColor_Button_pressed():
-	config_files.get_node("Color/Use").pressed = !config_files.get_node("Color/Use").pressed
+#	config_files.get_node("Color/Use").pressed = !config_files.get_node("Color/Use").pressed
+	config_files.get_node("Color/Use").pressed = config_files.get_node("Color/Button").pressed
 func _on_CustomSpeed_Button_pressed():
-	config_files.get_node("Speed/Use").pressed = !config_files.get_node("Speed/Use").pressed
+#	config_files.get_node("Speed/Use").pressed = !config_files.get_node("Speed/Use").pressed
+	config_files.get_node("Speed/Use").pressed = config_files.get_node("Speed/Button").pressed
 
 func _on_UseCustomColor_pressed():
 	pass
@@ -410,4 +422,5 @@ func _on_UseCustomSpeed_pressed():
 
 func setcrawler_tester():
 	$MainEditor/DlgSetsPanel/Main/SetCrawler._look_for( 0, "godette" )
+
 

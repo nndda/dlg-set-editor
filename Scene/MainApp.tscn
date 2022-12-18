@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://Icons/plus-solid.svg" type="Texture" id=1]
 [ext_resource path="res://Scene/ArraySetEditor.tscn" type="PackedScene" id=2]
@@ -28,6 +28,7 @@
 [ext_resource path="res://Scripts/DlgSetsCrawler.gd" type="Script" id=26]
 [ext_resource path="res://Scripts/DlgSetsCrawler_Logs.gd" type="Script" id=27]
 [ext_resource path="res://Icons/pen-solid.svg" type="Texture" id=28]
+[ext_resource path="res://Scene/DictionaryEditor-Character.gd" type="Script" id=29]
 
 [sub_resource type="ShaderMaterial" id=8]
 shader = ExtResource( 11 )
@@ -41,6 +42,37 @@ expand_margin_right = 24.0
 expand_margin_top = 24.0
 
 [sub_resource type="StyleBoxEmpty" id=7]
+
+[sub_resource type="Animation" id=11]
+resource_name = "Notif"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:percent_visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.6, 3.5, 5 ),
+"transitions": PoolRealArray( 0.5, 1, 0.31864, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0, 1.0, 0.0 ]
+}
+
+[sub_resource type="Animation" id=12]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:percent_visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
 
 [sub_resource type="Theme" id=9]
 Button/colors/font_color_disabled = Color( 0.380392, 0.92549, 0.941176, 1 )
@@ -171,10 +203,31 @@ text = "No portrait sprite selected"
 
 [node name="Credit" type="Label" parent="EditorContainer/Main/UpperBar/Stats"]
 visible = false
-margin_left = 574.0
-margin_right = 694.0
-margin_bottom = 22.0
+margin_left = 240.0
+margin_top = 3.0
+margin_right = 324.0
+margin_bottom = 21.0
 text = "nnda.itch.io"
+
+[node name="RightAlign" type="HBoxContainer" parent="EditorContainer/Main/UpperBar/Stats"]
+margin_left = 240.0
+margin_right = 1008.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="BackupNotif" type="Label" parent="EditorContainer/Main/UpperBar/Stats/RightAlign"]
+margin_left = 641.0
+margin_top = 3.0
+margin_right = 768.0
+margin_bottom = 21.0
+text = "Creating Backup..."
+align = 2
+percent_visible = 0.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="EditorContainer/Main/UpperBar/Stats/RightAlign/BackupNotif"]
+anims/Notif = SubResource( 11 )
+anims/RESET = SubResource( 12 )
 
 [node name="HS" type="HSeparator" parent="EditorContainer/Main/UpperBar"]
 margin_top = 28.0
@@ -187,19 +240,19 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 8.0
-margin_top = 44.0
+margin_top = 52.0
 margin_right = -8.0
 split_offset = 45
 
 [node name="DlgSetsPanel" type="PanelContainer" parent="MainEditor"]
 margin_right = 51.0
-margin_bottom = 560.0
+margin_bottom = 552.0
 
 [node name="Main" type="VBoxContainer" parent="MainEditor/DlgSetsPanel"]
 margin_left = 3.0
 margin_top = 3.0
 margin_right = 140.0
-margin_bottom = 557.0
+margin_bottom = 549.0
 
 [node name="Label" type="Label" parent="MainEditor/DlgSetsPanel/Main"]
 margin_right = 137.0
@@ -258,24 +311,24 @@ script = ExtResource( 9 )
 [node name="Sets_Dict" type="HSplitContainer" parent="MainEditor"]
 margin_left = 63.0
 margin_right = 1008.0
-margin_bottom = 560.0
+margin_bottom = 552.0
 
 [node name="DlgEditorPanel" type="PanelContainer" parent="MainEditor/Sets_Dict"]
 margin_right = 6.0
-margin_bottom = 560.0
+margin_bottom = 552.0
 
 [node name="ArraySetEditor" parent="MainEditor/Sets_Dict/DlgEditorPanel" instance=ExtResource( 2 )]
 margin_left = 3.0
 margin_top = 3.0
 margin_right = 355.0
-margin_bottom = 557.0
+margin_bottom = 549.0
 rect_min_size = Vector2( 270, 0 )
 size_flags_horizontal = 3
 
 [node name="DictionaryPanel" type="TabContainer" parent="MainEditor/Sets_Dict"]
 margin_left = 18.0
 margin_right = 945.0
-margin_bottom = 560.0
+margin_bottom = 552.0
 tab_align = 0
 script = ExtResource( 25 )
 
@@ -305,6 +358,7 @@ expand_icon = true
 script = ExtResource( 16 )
 
 [node name="Load" type="Button" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/FileInfo"]
+visible = false
 margin_left = 32.0
 margin_right = 60.0
 margin_bottom = 24.0
@@ -317,13 +371,13 @@ expand_icon = true
 script = ExtResource( 16 )
 
 [node name="VSeparator" type="VSeparator" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/FileInfo"]
-margin_left = 64.0
-margin_right = 68.0
+margin_left = 32.0
+margin_right = 36.0
 margin_bottom = 24.0
 
 [node name="Refresh" type="Button" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/FileInfo"]
-margin_left = 72.0
-margin_right = 100.0
+margin_left = 40.0
+margin_right = 68.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 28, 0 )
 icon = ExtResource( 20 )
@@ -334,9 +388,9 @@ expand_icon = true
 script = ExtResource( 16 )
 
 [node name="Filename" type="Label" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/FileInfo"]
-margin_left = 104.0
+margin_left = 72.0
 margin_top = 3.0
-margin_right = 266.0
+margin_right = 234.0
 margin_bottom = 21.0
 text = "Dict Filename.dict.tres"
 
@@ -349,12 +403,13 @@ margin_bottom = 28.0
 [node name="Panel" type="TabContainer" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary"]
 margin_top = 28.0
 margin_right = 477.0
-margin_bottom = 526.0
+margin_bottom = 518.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 tab_align = 0
 
 [node name="Content" type="VBoxContainer" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 3.0
@@ -400,7 +455,7 @@ script = ExtResource( 16 )
 [node name="Tree" type="Tree" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Content"]
 margin_top = 28.0
 margin_right = 471.0
-margin_bottom = 464.0
+margin_bottom = 456.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 2
@@ -421,7 +476,7 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 3.0
-margin_top = 28.0
+margin_top = 31.0
 margin_right = -3.0
 margin_bottom = -3.0
 
@@ -599,7 +654,6 @@ expand_icon = true
 script = ExtResource( 16 )
 
 [node name="Character" type="ScrollContainer" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 3.0
@@ -607,10 +661,11 @@ margin_top = 31.0
 margin_right = -3.0
 margin_bottom = -3.0
 scroll_horizontal_enabled = false
+script = ExtResource( 29 )
 
 [node name="Item" type="VBoxContainer" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Character"]
 margin_right = 471.0
-margin_bottom = 464.0
+margin_bottom = 456.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -646,20 +701,28 @@ margin_top = 28.0
 margin_right = 471.0
 margin_bottom = 32.0
 
-[node name="Name" type="Label" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Character/Item"]
+[node name="IsBlank" type="Label" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Character/Item"]
 margin_top = 36.0
 margin_right = 471.0
 margin_bottom = 54.0
 size_flags_horizontal = 3
+text = "Select a character or create a new one"
+align = 1
+
+[node name="Name" type="Label" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Character/Item"]
+margin_top = 58.0
+margin_right = 471.0
+margin_bottom = 76.0
+size_flags_horizontal = 3
 text = "Character's Name"
 align = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Character/Item"]
-margin_top = 58.0
+[node name="Portrait" type="CenterContainer" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Character/Item"]
+margin_top = 80.0
 margin_right = 471.0
-margin_bottom = 250.0
+margin_bottom = 272.0
 
-[node name="TextureRect" type="TextureRect" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Character/Item/CenterContainer"]
+[node name="TextureRect" type="TextureRect" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Character/Item/Portrait"]
 margin_left = 139.0
 margin_right = 331.0
 margin_bottom = 192.0
@@ -668,9 +731,9 @@ texture = SubResource( 10 )
 expand = true
 
 [node name="CurrentChr" type="VBoxContainer" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Character/Item"]
-margin_top = 254.0
+margin_top = 276.0
 margin_right = 471.0
-margin_bottom = 300.0
+margin_bottom = 322.0
 
 [node name="Label" type="Label" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Character/Item/CurrentChr"]
 margin_right = 471.0
@@ -681,7 +744,7 @@ text = "Character's Name"
 [node name="LineEdit" type="LineEdit" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Character/Item/CurrentChr"]
 visible = false
 margin_top = 22.0
-margin_right = 471.0
+margin_right = 463.0
 margin_bottom = 46.0
 size_flags_horizontal = 3
 text = "Godette"
@@ -691,7 +754,7 @@ margin_top = 22.0
 margin_right = 471.0
 margin_bottom = 46.0
 
-[node name="LineEdit" type="LineEdit" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Character/Item/CurrentChr/HBoxContainer"]
+[node name="NameEdit" type="LineEdit" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Character/Item/CurrentChr/HBoxContainer"]
 margin_right = 439.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
@@ -729,9 +792,9 @@ color = Color( 1, 1, 1, 1 )
 edit_alpha = false
 
 [node name="CurrentExpressions" type="VBoxContainer" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Character/Item"]
-margin_top = 304.0
+margin_top = 326.0
 margin_right = 471.0
-margin_bottom = 406.0
+margin_bottom = 428.0
 
 [node name="Label" type="Label" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Character/Item/CurrentExpressions"]
 margin_right = 471.0
@@ -745,6 +808,7 @@ margin_right = 471.0
 margin_bottom = 46.0
 
 [node name="Edit" type="Button" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Character/Item/CurrentExpressions/Current"]
+visible = false
 margin_right = 28.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 28, 0 )
@@ -753,7 +817,6 @@ icon_align = 1
 expand_icon = true
 
 [node name="Options" type="OptionButton" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Character/Item/CurrentExpressions/Current"]
-margin_left = 32.0
 margin_right = 407.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
@@ -825,11 +888,11 @@ allow_greater = true
 align = 1
 
 [node name="ControlChanges" type="VBoxContainer" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Character/Item"]
-margin_top = 410.0
+margin_top = 432.0
 margin_right = 471.0
-margin_bottom = 434.0
+margin_bottom = 456.0
 
-[node name="Button" type="Button" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Character/Item/ControlChanges"]
+[node name="Apply" type="Button" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Character/Item/ControlChanges"]
 margin_right = 471.0
 margin_bottom = 24.0
 text = "Apply changes"
@@ -1012,24 +1075,37 @@ align = 0
 expand_icon = true
 script = ExtResource( 16 )
 
+[node name="ButtonNew" type="Button" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict"]
+margin_left = 224.0
+margin_right = 248.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 24, 0 )
+hint_tooltip = "Create new dictionary"
+mouse_default_cursor_shape = 2
+toggle_mode = true
+icon = ExtResource( 1 )
+align = 0
+expand_icon = true
+script = ExtResource( 16 )
+
 [node name="Label" type="Label" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict"]
 visible = false
 modulate = Color( 1, 1, 1, 0.564706 )
 margin_left = 224.0
 margin_top = 3.0
-margin_right = 526.0
+margin_right = 596.0
 margin_bottom = 21.0
 text = "Godot TextFile ( *.tres  ) containing the dictionary"
 
 [node name="VSeparator" type="VSeparator" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict"]
-margin_left = 224.0
-margin_right = 229.0
+margin_left = 252.0
+margin_right = 257.0
 margin_bottom = 24.0
 custom_constants/separation = 5
 
 [node name="OK" type="HBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict"]
-margin_left = 233.0
-margin_right = 257.0
+margin_left = 261.0
+margin_right = 285.0
 margin_bottom = 24.0
 
 [node name="TextureRect" type="TextureRect" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict/OK"]
@@ -1127,7 +1203,6 @@ margin_left = 32.0
 margin_right = 252.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 220, 0 )
-hint_tooltip = "Image File ( *.png  )"
 mouse_default_cursor_shape = 2
 toggle_mode = true
 text = " Use custom color"
@@ -1167,7 +1242,6 @@ margin_left = 32.0
 margin_right = 252.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 220, 0 )
-hint_tooltip = "Image File ( *.png  )"
 mouse_default_cursor_shape = 2
 toggle_mode = true
 text = " Use custom speed"
@@ -1333,6 +1407,7 @@ align = 1
 suffix = "minutes"
 
 [node name="Count" type="HBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/AutoBackup"]
+visible = false
 margin_top = 50.0
 margin_right = 425.0
 margin_bottom = 74.0
@@ -1356,12 +1431,20 @@ value = 3.0
 rounded = true
 align = 1
 
+[node name="BtnOpenFolder" type="Button" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences/AutoBackup"]
+margin_top = 50.0
+margin_right = 425.0
+margin_bottom = 74.0
+text = "Open backup folder"
+
 [node name="HSeparator2" type="HSeparator" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences"]
+visible = false
 margin_top = 86.0
 margin_right = 425.0
 margin_bottom = 90.0
 
 [node name="ErrorFix" type="VBoxContainer" parent="StartScreen/CenterContainer/VBoxContainer/TabContainer/Preferences"]
+visible = false
 margin_top = 94.0
 margin_right = 425.0
 margin_bottom = 190.0
@@ -1588,13 +1671,13 @@ icon = ExtResource( 1 )
 expand_icon = true
 
 [node name="CrawlerSetWarning" type="WindowDialog" parent="PopUpContainer"]
-margin_left = 362.0
-margin_top = 202.0
-margin_right = 662.0
-margin_bottom = 402.0
+margin_left = 262.0
+margin_top = 152.0
+margin_right = 762.0
+margin_bottom = 452.0
 grow_horizontal = 2
 grow_vertical = 2
-rect_min_size = Vector2( 300, 200 )
+rect_min_size = Vector2( 500, 300 )
 
 [node name="Panel" type="MarginContainer" parent="PopUpContainer/CrawlerSetWarning"]
 anchor_right = 1.0
@@ -1607,87 +1690,36 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PopUpContainer/CrawlerSetWarning/Panel"]
-margin_right = 290.0
-margin_bottom = 190.0
+margin_right = 490.0
+margin_bottom = 290.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="PopUpContainer/CrawlerSetWarning/Panel/VBoxContainer"]
-margin_right = 290.0
+margin_right = 490.0
 margin_bottom = 18.0
+text = "Unable to remove character"
+align = 1
+
+[node name="Label2" type="Label" parent="PopUpContainer/CrawlerSetWarning/Panel/VBoxContainer"]
+margin_top = 22.0
+margin_right = 490.0
+margin_bottom = 40.0
 text = "Characters/Expressions is in use on:"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="PopUpContainer/CrawlerSetWarning/Panel/VBoxContainer"]
-margin_top = 22.0
-margin_right = 290.0
-margin_bottom = 190.0
+margin_top = 44.0
+margin_right = 490.0
+margin_bottom = 290.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Logs" type="VBoxContainer" parent="PopUpContainer/CrawlerSetWarning/Panel/VBoxContainer/ScrollContainer"]
-margin_right = 290.0
-margin_bottom = 168.0
+margin_right = 490.0
+margin_bottom = 246.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 27 )
-
-[node name="LogItm" type="VBoxContainer" parent="PopUpContainer/CrawlerSetWarning/Panel/VBoxContainer/ScrollContainer/Logs"]
-margin_right = 290.0
-margin_bottom = 168.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="HSeparator" type="HSeparator" parent="PopUpContainer/CrawlerSetWarning/Panel/VBoxContainer/ScrollContainer/Logs/LogItm"]
-margin_right = 290.0
-margin_bottom = 4.0
-
-[node name="Labels" type="HBoxContainer" parent="PopUpContainer/CrawlerSetWarning/Panel/VBoxContainer/ScrollContainer/Logs/LogItm"]
-margin_top = 8.0
-margin_right = 290.0
-margin_bottom = 26.0
-
-[node name="Label" type="Label" parent="PopUpContainer/CrawlerSetWarning/Panel/VBoxContainer/ScrollContainer/Logs/LogItm/Labels"]
-margin_right = 143.0
-margin_bottom = 18.0
-size_flags_horizontal = 3
-text = "Character"
-
-[node name="Label2" type="Label" parent="PopUpContainer/CrawlerSetWarning/Panel/VBoxContainer/ScrollContainer/Logs/LogItm/Labels"]
-margin_left = 147.0
-margin_right = 290.0
-margin_bottom = 18.0
-size_flags_horizontal = 3
-text = "Line"
-
-[node name="Value" type="HBoxContainer" parent="PopUpContainer/CrawlerSetWarning/Panel/VBoxContainer/ScrollContainer/Logs/LogItm"]
-margin_top = 30.0
-margin_right = 290.0
-margin_bottom = 48.0
-
-[node name="ChrName" type="Label" parent="PopUpContainer/CrawlerSetWarning/Panel/VBoxContainer/ScrollContainer/Logs/LogItm/Value"]
-margin_right = 143.0
-margin_bottom = 18.0
-size_flags_horizontal = 3
-text = "Godette"
-
-[node name="ChrIdx" type="Label" parent="PopUpContainer/CrawlerSetWarning/Panel/VBoxContainer/ScrollContainer/Logs/LogItm/Value"]
-margin_left = 147.0
-margin_right = 290.0
-margin_bottom = 18.0
-size_flags_horizontal = 3
-text = "0"
-
-[node name="file_name" type="Label" parent="PopUpContainer/CrawlerSetWarning/Panel/VBoxContainer/ScrollContainer/Logs/LogItm"]
-margin_top = 52.0
-margin_right = 290.0
-margin_bottom = 70.0
-text = "dlg_test.tres"
-
-[node name="file_path" type="Label" parent="PopUpContainer/CrawlerSetWarning/Panel/VBoxContainer/ScrollContainer/Logs/LogItm"]
-margin_top = 74.0
-margin_right = 290.0
-margin_bottom = 92.0
-text = "C:/dlg_test.tres"
 
 [node name="BrowseDict" type="FileDialog" parent="."]
 anchor_right = 1.0
@@ -1701,6 +1733,19 @@ popup_exclusive = true
 window_title = "Open a File"
 resizable = true
 mode = 0
+access = 2
+filters = PoolStringArray( "*.tres", "*.res" )
+
+[node name="NewDict" type="FileDialog" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 104.0
+margin_top = 56.0
+margin_right = -80.0
+margin_bottom = -32.0
+rect_min_size = Vector2( 150, 52.5 )
+popup_exclusive = true
+resizable = true
 access = 2
 filters = PoolStringArray( "*.tres", "*.res" )
 
@@ -1745,6 +1790,7 @@ text = "Look for godette on 0"
 [connection signal="item_selected" from="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Content/Control/View" to="MainEditor/Sets_Dict/DictionaryPanel" method="_on_View_item_selected"]
 [connection signal="pressed" from="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Content/Control/ShowCfg" to="MainEditor/Sets_Dict/DictionaryPanel" method="UpdateDictContent"]
 [connection signal="pressed" from="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Content/Control/ShowBlank" to="MainEditor/Sets_Dict/DictionaryPanel" method="UpdateDictContent"]
+[connection signal="visibility_changed" from="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Config" to="MainEditor/Sets_Dict/DictionaryPanel" method="_on_DictConfig_visibility_changed"]
 [connection signal="pressed" from="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Config/use_portraits" to="MainEditor/Sets_Dict/DictionaryPanel" method="_on_use_portraits_pressed"]
 [connection signal="value_changed" from="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Config/PortraitConfig/Column/Value" to="MainEditor/Sets_Dict/DictionaryPanel" method="_crop_portrait_Value_changed"]
 [connection signal="value_changed" from="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Config/PortraitConfig/Row/Value" to="MainEditor/Sets_Dict/DictionaryPanel" method="_crop_portrait_Value_changed"]
@@ -1754,12 +1800,18 @@ text = "Look for godette on 0"
 [connection signal="pressed" from="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Config/use_custom_speed" to="MainEditor/Sets_Dict/DictionaryPanel" method="_on_use_custom_speed_pressed"]
 [connection signal="visibility_changed" from="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Character/Item" to="MainEditor/Sets_Dict/DictionaryPanel" method="_on_CharacterEditor_visibility_changed"]
 [connection signal="item_selected" from="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Character/Item/Current/Options" to="MainEditor/Sets_Dict/DictionaryPanel" method="_on_Chr_item_selected"]
+[connection signal="pressed" from="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Character/Item/Current/Delete" to="MainEditor/Sets_Dict/DictionaryPanel" method="_on_CHR_Delete_pressed"]
+[connection signal="text_changed" from="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Character/Item/CurrentChr/HBoxContainer/NameEdit" to="MainEditor/Sets_Dict/DictionaryPanel" method="_on_Actor_NameEdit_text_changed"]
 [connection signal="color_changed" from="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Character/Item/CurrentChr/HBoxContainer/ColorPickerButton" to="MainEditor/Sets_Dict/DictionaryPanel" method="_on_ColorPickerButton_color_changed"]
 [connection signal="color_changed" from="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Character/Item/CustomColor/ColorPickerButton" to="MainEditor/Sets_Dict/DictionaryPanel" method="_on_ColorPickerButton_color_changed"]
 [connection signal="item_selected" from="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Character/Item/CurrentExpressions/Current/Options" to="MainEditor/Sets_Dict/DictionaryPanel" method="_on_ChrExpressions_item_selected"]
+[connection signal="pressed" from="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Character/Item/ControlChanges/Apply" to="MainEditor/Sets_Dict/DictionaryPanel" method="_on_CHR_ApplyChange_pressed"]
 [connection signal="mouse_entered" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict/Button" to="." method="set_tooltiphint" binds= [ "Godot Text File ( *.tres *.res ) containing a dictionary" ]]
 [connection signal="mouse_exited" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict/Button" to="." method="set_tooltiphint"]
 [connection signal="pressed" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict/Button" to="." method="_on_BrowseDict_pressed"]
+[connection signal="mouse_entered" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict/ButtonNew" to="." method="set_tooltiphint" binds= [ "Create a new dictionary" ]]
+[connection signal="mouse_exited" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict/ButtonNew" to="." method="set_tooltiphint"]
+[connection signal="pressed" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict/ButtonNew" to="." method="_on_BrowseDict_pressed"]
 [connection signal="mouse_entered" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Portrait/Button" to="." method="set_tooltiphint" binds= [ "An image with the grid of characters' portraits" ]]
 [connection signal="mouse_exited" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Portrait/Button" to="." method="set_tooltiphint"]
 [connection signal="pressed" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Portrait/Button" to="." method="_on_BrowsePortrait_pressed"]
@@ -1770,8 +1822,12 @@ text = "Look for godette on 0"
 [connection signal="mouse_entered" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/Templates/Load/Button" to="." method="set_tooltiphint" binds= [ "Start the set editor" ]]
 [connection signal="mouse_exited" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/Templates/Load/Button" to="." method="set_tooltiphint"]
 [connection signal="pressed" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/Templates/Load/Button" to="." method="start_editor"]
+[connection signal="popup_hide" from="PopUpContainer/CrawlerSetWarning" to="PopUpContainer/CrawlerSetWarning/Panel/VBoxContainer/ScrollContainer/Logs" method="_on_CrawlerSetWarning_popup_hide"]
+[connection signal="visibility_changed" from="PopUpContainer/CrawlerSetWarning" to="PopUpContainer/CrawlerSetWarning/Panel/VBoxContainer/ScrollContainer/Logs" method="_on_CrawlerSetWarning_visibility_changed"]
 [connection signal="file_selected" from="BrowseDict" to="." method="_on_BrowseDict_file_selected"]
 [connection signal="popup_hide" from="BrowseDict" to="." method="_dimmed_popup_hide"]
+[connection signal="file_selected" from="NewDict" to="." method="_on_NewDict_file_selected"]
+[connection signal="popup_hide" from="NewDict" to="." method="_dimmed_popup_hide"]
 [connection signal="file_selected" from="BrowseImg" to="." method="_on_BrowseImg_file_selected"]
 [connection signal="popup_hide" from="BrowseImg" to="." method="_dimmed_popup_hide"]
 [connection signal="file_selected" from="NewSet" to="MainEditor/DlgSetsPanel/Main/SetList" method="new_set_file"]

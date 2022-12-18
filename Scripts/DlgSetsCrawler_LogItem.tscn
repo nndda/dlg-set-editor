@@ -1,0 +1,55 @@
+[gd_scene format=2]
+
+[node name="LogItm" type="VBoxContainer"]
+margin_right = 290.0
+margin_bottom = 168.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HSeparator" type="HSeparator" parent="."]
+visible = false
+margin_right = 290.0
+margin_bottom = 4.0
+
+[node name="Labels" type="HBoxContainer" parent="."]
+visible = false
+margin_top = 8.0
+margin_right = 290.0
+margin_bottom = 22.0
+
+[node name="file_name" type="Label" parent="Labels"]
+margin_right = 143.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Files"
+
+[node name="lines" type="Label" parent="Labels"]
+margin_left = 147.0
+margin_right = 290.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Lines"
+
+[node name="Value" type="HBoxContainer" parent="."]
+margin_right = 290.0
+margin_bottom = 14.0
+
+[node name="file_name" type="Label" parent="Value"]
+margin_right = 143.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "dlg_test.tres"
+
+[node name="file_path" type="Label" parent="Value"]
+visible = false
+margin_left = 95.0
+margin_right = 207.0
+margin_bottom = 18.0
+text = "C:/dlg_test.tres"
+
+[node name="lines" type="Label" parent="Value"]
+margin_left = 147.0
+margin_right = 290.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "0"

@@ -94,7 +94,7 @@ func _process(_delta):
 			dict_chr_panel.get_node("Name").visible = !blank_selected
 			dict_chr_panel.get_node("Portrait").visible = !blank_selected
 			dict_chr_panel.get_node("CurrentChr").visible = !blank_selected
-			dict_chr_panel.get_node("CustomColor").visible = !blank_selected
+#			dict_chr_panel.get_node("CustomColor").visible = !blank_selected
 			dict_chr_panel.get_node("CurrentExpressions").visible = !blank_selected
 			dict_chr_panel.get_node("ControlChanges").visible = !blank_selected
 
@@ -222,21 +222,25 @@ func _on_Save_pressed():
 	glbl.save_dict_properties()
 
 func _on_CHR_Delete_pressed():
+
 	if glbl.set_crawler.check_character(
 		str( actor_name_option.get_item_text( actor_name_option.selected ) )
 		).empty():
-			glbl.dict_chr.erase( str( actor_name_option.get_item_text( actor_name_option.selected ) ) )
-			self.refresh_data()
+			$"../../../PopUpContainer/ConfirmDeleteCHR".popup_centered()
 
 	else:
-
 		glbl.set_crawler_popup.get_node("Panel/VBoxContainer/Label").text = "Unable to remove " + str( actor_name_option.get_item_text( actor_name_option.selected ) )
 		glbl.set_crawler_popup.get_node("Panel/VBoxContainer/ScrollContainer/Logs").add_log(
 			glbl.set_crawler.check_character(
 				str( actor_name_option.get_item_text( actor_name_option.selected ) )
 			)
 		)
-		glbl.set_crawler_popup.popup()
+		glbl.set_crawler_popup.popup_centered()
+
+func _on_ConfirmDeleteCHR_confirmed():
+	glbl.dict_chr.erase( str( actor_name_option.get_item_text( actor_name_option.selected ) ) )
+	self.refresh_data()
+
 
 func _on_Actor_NameEdit_text_changed(new_text):
 	glbl.dict_chr[ actor_name_option.get_item_text( actor_name_option.selected ) ]["label"] = str( new_text )
@@ -245,3 +249,5 @@ func _on_Actor_NameEdit_text_changed(new_text):
 
 func _on_CHR_ApplyChange_pressed():
 	glbl.save_dict_properties()
+
+

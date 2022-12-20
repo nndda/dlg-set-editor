@@ -54,9 +54,11 @@ func _process(_delta):
 		if glbl.current_dict != null:
 			dict_browse_btn.text = " Remove dict."
 			dict_browse_btn.set_pressed(true)
+			dict_browse_btn.get_node("../ButtonNew").set_disabled(true)
 		else:
 			dict_browse_btn.text = " Select dict."
 			dict_browse_btn.set_pressed(false)
+			dict_browse_btn.get_node("../ButtonNew").set_disabled(false)
 
 
 		for input_chd in config_files.get_children():
@@ -175,10 +177,16 @@ func Tree_AddChrs( tree_target, actor, show_blank ):
 
 
 
-func _on_BrowseDict_pressed():
+func _on_BrowseDict_pressed(new = false):
 	if glbl.current_dict == null:
-		$BrowseDict.popup_centered()
+
+		if new:
+			$NewDict.popup_centered()
+		else:
+			$BrowseDict.popup_centered()
+
 		$DimBG.visible = true
+
 	else:
 		glbl.current_dict = null
 		dict_stat_hint.text = "No global dictionary selected"
@@ -333,6 +341,7 @@ func verify_dict( target ):
 			glbl.panel_dictionary.dict_config_panel.get_node("PortraitConfig/Height/Value").value		= glbl.current_dict._CONFIG.portrait_size_px[1]
 
 			_build_dict_tree()
+			glbl.backups.copy_dict()
 
 	else:
 		log_start( log_msg.dict_blank_global_actor )
@@ -395,6 +404,8 @@ func _on_BrowseImg_file_selected(path):
 	img_stat_hint.text = "[" + str( img_filename ) + "] " + "width:" + str( Imeg.get_width() ) + "px , height:" + str( Imeg.get_height() ) + "px"
 
 	filewww.close()
+	glbl.portrait_filepath = path
+
 
 	verify_img( ImegTex )
 

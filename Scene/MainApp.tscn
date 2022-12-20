@@ -183,16 +183,24 @@ margin_bottom = 21.0
 text = "No dictionary selected"
 
 [node name="VSeparator2" type="VSeparator" parent="EditorContainer/Main/UpperBar/Stats"]
+visible = false
 margin_left = 232.0
 margin_right = 236.0
 margin_bottom = 24.0
 custom_styles/separator = SubResource( 7 )
 
 [node name="VSeparator3" type="VSeparator" parent="EditorContainer/Main/UpperBar/Stats"]
+margin_left = 232.0
+margin_right = 236.0
+margin_bottom = 24.0
+
+[node name="Tooltip" type="Label" parent="EditorContainer/Main/UpperBar/Stats"]
 visible = false
-margin_left = 176.0
-margin_right = 180.0
-margin_bottom = 18.0
+margin_left = 240.0
+margin_top = 3.0
+margin_right = 339.0
+margin_bottom = 21.0
+text = "Character list"
 
 [node name="GlobalPortrait" type="Label" parent="EditorContainer/Main/UpperBar/Stats"]
 visible = false
@@ -409,7 +417,6 @@ size_flags_vertical = 3
 tab_align = 0
 
 [node name="Content" type="VBoxContainer" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 3.0
@@ -654,6 +661,7 @@ expand_icon = true
 script = ExtResource( 16 )
 
 [node name="Character" type="ScrollContainer" parent="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 3.0
@@ -1707,8 +1715,31 @@ margin_right = 490.0
 margin_bottom = 40.0
 text = "Characters/Expressions is in use on:"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="PopUpContainer/CrawlerSetWarning/Panel/VBoxContainer"]
+[node name="LabelContainer" type="HBoxContainer" parent="PopUpContainer/CrawlerSetWarning/Panel/VBoxContainer"]
 margin_top = 44.0
+margin_right = 490.0
+margin_bottom = 62.0
+
+[node name="Filename" type="Label" parent="PopUpContainer/CrawlerSetWarning/Panel/VBoxContainer/LabelContainer"]
+margin_right = 243.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+text = "File"
+
+[node name="Lines" type="Label" parent="PopUpContainer/CrawlerSetWarning/Panel/VBoxContainer/LabelContainer"]
+margin_left = 247.0
+margin_right = 490.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+text = "Lines"
+
+[node name="HSeparator" type="HSeparator" parent="PopUpContainer/CrawlerSetWarning/Panel/VBoxContainer"]
+margin_top = 66.0
+margin_right = 490.0
+margin_bottom = 70.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PopUpContainer/CrawlerSetWarning/Panel/VBoxContainer"]
+margin_top = 74.0
 margin_right = 490.0
 margin_bottom = 290.0
 size_flags_horizontal = 3
@@ -1716,10 +1747,19 @@ size_flags_vertical = 3
 
 [node name="Logs" type="VBoxContainer" parent="PopUpContainer/CrawlerSetWarning/Panel/VBoxContainer/ScrollContainer"]
 margin_right = 490.0
-margin_bottom = 246.0
+margin_bottom = 216.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 27 )
+
+[node name="ConfirmDeleteCHR" type="ConfirmationDialog" parent="PopUpContainer"]
+margin_left = 403.0
+margin_top = 269.0
+margin_right = 621.0
+margin_bottom = 335.0
+rect_min_size = Vector2( 150, 52.5 )
+window_title = "Confirm delete character"
+dialog_text = "Delete character \"Godette\"?"
 
 [node name="BrowseDict" type="FileDialog" parent="."]
 anchor_right = 1.0
@@ -1808,10 +1848,10 @@ text = "Look for godette on 0"
 [connection signal="pressed" from="MainEditor/Sets_Dict/DictionaryPanel/Dictionary/Panel/Character/Item/ControlChanges/Apply" to="MainEditor/Sets_Dict/DictionaryPanel" method="_on_CHR_ApplyChange_pressed"]
 [connection signal="mouse_entered" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict/Button" to="." method="set_tooltiphint" binds= [ "Godot Text File ( *.tres *.res ) containing a dictionary" ]]
 [connection signal="mouse_exited" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict/Button" to="." method="set_tooltiphint"]
-[connection signal="pressed" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict/Button" to="." method="_on_BrowseDict_pressed"]
+[connection signal="pressed" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict/Button" to="." method="_on_BrowseDict_pressed" binds= [ false ]]
 [connection signal="mouse_entered" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict/ButtonNew" to="." method="set_tooltiphint" binds= [ "Create a new dictionary" ]]
 [connection signal="mouse_exited" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict/ButtonNew" to="." method="set_tooltiphint"]
-[connection signal="pressed" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict/ButtonNew" to="." method="_on_BrowseDict_pressed"]
+[connection signal="pressed" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Dict/ButtonNew" to="." method="_on_BrowseDict_pressed" binds= [ true ]]
 [connection signal="mouse_entered" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Portrait/Button" to="." method="set_tooltiphint" binds= [ "An image with the grid of characters' portraits" ]]
 [connection signal="mouse_exited" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Portrait/Button" to="." method="set_tooltiphint"]
 [connection signal="pressed" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/BrowseBtn/Portrait/Button" to="." method="_on_BrowsePortrait_pressed"]
@@ -1824,6 +1864,7 @@ text = "Look for godette on 0"
 [connection signal="pressed" from="StartScreen/CenterContainer/VBoxContainer/TabContainer/Editor/Inputs/Templates/Load/Button" to="." method="start_editor"]
 [connection signal="popup_hide" from="PopUpContainer/CrawlerSetWarning" to="PopUpContainer/CrawlerSetWarning/Panel/VBoxContainer/ScrollContainer/Logs" method="_on_CrawlerSetWarning_popup_hide"]
 [connection signal="visibility_changed" from="PopUpContainer/CrawlerSetWarning" to="PopUpContainer/CrawlerSetWarning/Panel/VBoxContainer/ScrollContainer/Logs" method="_on_CrawlerSetWarning_visibility_changed"]
+[connection signal="confirmed" from="PopUpContainer/ConfirmDeleteCHR" to="MainEditor/Sets_Dict/DictionaryPanel" method="_on_ConfirmDeleteCHR_confirmed"]
 [connection signal="file_selected" from="BrowseDict" to="." method="_on_BrowseDict_file_selected"]
 [connection signal="popup_hide" from="BrowseDict" to="." method="_dimmed_popup_hide"]
 [connection signal="file_selected" from="NewDict" to="." method="_on_NewDict_file_selected"]

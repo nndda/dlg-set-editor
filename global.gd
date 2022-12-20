@@ -2,6 +2,8 @@ extends Node
 
 #	idk if im using the right words for naming the variables and stuff
 
+onready var backups = $Backups
+
 enum SET_TYPE{
 	Lines,		# 0
 	Pause,		# 1
@@ -36,7 +38,7 @@ var default_settings = {
 var current_settings = {}
 
 func read_settings():
-	$AutoBackup.stop()
+	$Backups.stop()
 	var app_cfg = File.new()
 
 	if app_cfg.file_exists( "user://" + glbl.settings_filename ):
@@ -56,10 +58,10 @@ func read_settings():
 		app_cfg.close()
 
 	if glbl.current_settings.auto_backup.active:
-		$AutoBackup.set_wait_time( glbl.current_settings.auto_backup.interval )
-		$AutoBackup.start()
+		$Backups.set_wait_time( glbl.current_settings.auto_backup.interval )
+		$Backups.start()
 	else:
-		$AutoBackup.stop()
+		$Backups.stop()
 
 func write_settings():
 	var app_cfg = File.new()
@@ -74,6 +76,7 @@ var color_theme = Color8(97,236,240)
 
 var current_set_use_expr = true
 var current_portrait
+var portrait_filepath
 
 var portrait_grid_size = Vector2()		# Row and Column 
 var portrait_size = Vector2()			# Portrait sheet image dimension

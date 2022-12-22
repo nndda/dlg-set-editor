@@ -17,6 +17,9 @@ onready var load_btn = $"StartScreen/CenterContainer/VBoxContainer/TabContainer/
 
 onready var tooltip_label = $"StartScreen/CenterContainer/VBoxContainer/HintTooltip/LabelText"
 
+func _enter_tree():
+	glbl.main_app = self
+
 func _ready():
 
 	glbl.main_app = self
@@ -89,7 +92,10 @@ func set_tooltiphint( messag = "" ):
 		tooltip_label.text = messag
 	else:
 		tooltip_label.text = "nnda.itch.io"
-
+func set_editor_tooltip( messag = "" ):
+	glbl.set_editor_tooltip( messag )
+func hint_reloading():
+	$EditorContainer/Main/UpperBar/Stats/SaveIndicator/AnimationPlayer.play("Rotating")
 
 func _build_dict_tree(
 	show_config = true,

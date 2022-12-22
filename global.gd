@@ -17,6 +17,12 @@ func bool2var( boolean, return_true, return_false ):
 		return return_false
 
 
+func set_editor_tooltip( messag ):
+	if messag != null:
+		get_parent().get_node( "MainApp/EditorContainer/Main/UpperBar/Stats/RightAlign/Tooltip" ).text = messag
+	else:
+		get_parent().get_node( "MainApp/EditorContainer/Main/UpperBar/Stats/RightAlign/Tooltip" ).text = ""
+
 
 #	Configurations for the apps
 var settings_filename = "preferences.cfg"
@@ -143,6 +149,7 @@ func save_dict_properties( save_file = false ):
 	glbl.current_dict.characters = glbl.dict_chr
 	glbl.current_dict._CONFIG = glbl.dict_cfg
 	if !save_file:
+		glbl.main_app.emit_signal( "hint_reloading" )
 		var DictSave = File.new()
 		print( "Saving dictionary : " + str( glbl.dict_filepath ) )
 		DictSave.open( glbl.dict_filepath, File.WRITE )

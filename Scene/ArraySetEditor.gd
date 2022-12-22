@@ -12,6 +12,7 @@ func update_set_lines():
 #	load_set()
 
 func save_set():
+	glbl.main_app.emit_signal( "hint_reloading" )
 	print( "Saving set to : " + str( glbl.current_set_fullpath ) )
 	var save_file = File.new()
 	save_file.open( glbl.current_set_fullpath, File.WRITE )

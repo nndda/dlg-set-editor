@@ -218,6 +218,7 @@ func set_portrait_img():
 
 
 
+
 func _on_Save_pressed():
 	glbl.save_dict_properties()
 
